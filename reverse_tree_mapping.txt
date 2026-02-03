@@ -1,0 +1,17 @@
+Watcher/Antediluvian Origin
+└─► Forbidden Teachings (metallurgy, sorcery, star-lore, ritual speech, hybridization)
+    └─► Priesthood Encapsulation (Mesopotamian/Egyptian)
+        └─► Hermetic/Kabbalistic Syntheses (Hellenistic)
+            └─► Solomonic/Medieval Grimoires (Latin)
+                ├─► Apparent Prayers (surface text)
+                │   └─► Modern: Public-facing docs/spec prose
+                ├─► Seals & Sigils (geometry on kameas)
+                │   └─► Modern: Hashes, public keys, code-signing, QR
+                ├─► Planetary Timings (electional windows)
+                │   └─► Modern: Cron, timelocks, VDFs, TOTP windows
+                ├─► Angelic Invocations (ordered names)
+                │   └─► Modern: API call chains, microservice choreography
+                ├─► Correspondence Tables (text×space×time×sound×matter)
+                │   └─► Modern: Schemas, ontologies, feature stores, embeddings
+                └─► Materials (metals/incense/tools)
+                    └─► Modern: Hardware targets, materials platforms, nanotech
