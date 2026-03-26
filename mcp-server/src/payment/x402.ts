@@ -139,21 +139,26 @@ export function validatePaymentHeader(
     return { valid: false, error: "Missing X-PAYMENT header" };
   }
 
-  // In production, decode and verify the payment proof:
-  // 1. Decode the base64-encoded payment payload
-  // 2. Verify the signature against the sender's address
-  // 3. Verify the payment amount meets the tool's price
-  // 4. Verify the payment hasn't been used before (replay protection)
-  // 5. Settle the payment on-chain or via facilitator
+  // ⚠️ PRODUCTION WARNING: This validation is intentionally permissive
+  // for MVP/testing. It accepts any non-empty X-PAYMENT header.
   //
-  // For MVP/testing, accept any non-empty payment header.
-  // Replace this with actual x402 SDK verification in production:
+  // Before deploying to production:
+  // 1. Install @coinbase/x402: `npm install @coinbase/x402`
+  // 2. Replace this function body with proper verification:
   //
   //   import { verifyPayment } from "@coinbase/x402";
   //   const result = await verifyPayment(paymentHeader, {
   //     network: pricing.network,
   //     receiverAddress: pricing.receiverAddress,
   //   });
+  //   return { valid: result.isValid, error: result.error };
+
+  if (process.env["NODE_ENV"] === "production" && !process.env["GRIMOIRE_ALLOW_MVP_PAYMENTS"]) {
+    return {
+      valid: false,
+      error: "Production mode requires @coinbase/x402 payment verification. Set GRIMOIRE_ALLOW_MVP_PAYMENTS=1 to override.",
+    };
+  }
 
   return { valid: true };
 }
