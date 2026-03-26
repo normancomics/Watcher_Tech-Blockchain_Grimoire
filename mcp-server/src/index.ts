@@ -6,6 +6,13 @@
  * A sovereign MCP server that exposes 5 blockchain security intelligence
  * tools powered by the Watcher Tech Blockchain Grimoire knowledge base.
  *
+ * Every tool call runs inside an isolated sandbox with:
+ * - Per-tool security policies (input limits, output caps, timeouts)
+ * - Frozen knowledge base snapshots (no shared mutable state)
+ * - Input sanitization (null bytes, control chars, length enforcement)
+ * - Error containment (tool failures never crash the server)
+ * - Full audit trail (every execution logged)
+ *
  * Usage:
  *   npx grimoire-oracle              # Run as MCP server (stdio)
  *   GRIMOIRE_REPO_PATH=/path/to/repo npx grimoire-oracle
@@ -24,7 +31,7 @@ import { z } from "zod";
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 
-import { loadKnowledgeBase, type KnowledgeChunk } from "./knowledge/loader.js";
+import { loadKnowledgeBase } from "./knowledge/loader.js";
 import { auditScan, formatAuditReport } from "./tools/audit-scan.js";
 import { queryCodex } from "./tools/query-codex.js";
 import { getDefenseRecommendation } from "./tools/defense-recommend.js";
@@ -37,6 +44,9 @@ import {
   DEFENSE_PARADIGMS,
 } from "./knowledge/archetypes.js";
 
+import { sandboxExecute, getFrozenKnowledge } from "./sandbox/sandbox.js";
+import { getAuditStats } from "./sandbox/audit-log.js";
+
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
 // ─── Knowledge Base Initialization ──────────────────────────────────
@@ -45,13 +55,12 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const REPO_ROOT =
   process.env["GRIMOIRE_REPO_PATH"] ?? join(__dirname, "../..");
 
-let knowledgeBase: KnowledgeChunk[] = [];
-
-function ensureKnowledgeLoaded(): KnowledgeChunk[] {
-  if (knowledgeBase.length === 0) {
-    knowledgeBase = loadKnowledgeBase(REPO_ROOT);
-  }
-  return knowledgeBase;
+/**
+ * Returns a frozen, immutable snapshot of the knowledge base.
+ * Safe to share across concurrent sandbox executions.
+ */
+function getKnowledge() {
+  return getFrozenKnowledge(() => loadKnowledgeBase(REPO_ROOT));
 }
 
 // ─── MCP Server Setup ───────────────────────────────────────────────
@@ -78,14 +87,24 @@ server.tool(
       .describe("Optional name of the contract being audited"),
   },
   async ({ sourceCode, contractName }) => {
-    const report = auditScan(sourceCode, contractName);
-    const formatted = formatAuditReport(report);
+    const result = await sandboxExecute(
+      "grimoire_audit_scan",
+      { sourceCode, contractName },
+      (inputs) => {
+        const report = auditScan(
+          inputs["sourceCode"] as string,
+          inputs["contractName"] as string | undefined,
+        );
+        return formatAuditReport(report);
+      },
+      { transport: "stdio" },
+    );
 
     return {
       content: [
         {
           type: "text" as const,
-          text: formatted,
+          text: result.output,
         },
       ],
     };
@@ -117,14 +136,30 @@ server.tool(
       ),
   },
   async ({ query, maxResults, filterTags }) => {
-    const chunks = ensureKnowledgeLoaded();
-    const result = queryCodex(chunks, query, { maxResults, filterTags });
+    const knowledge = getKnowledge();
+
+    const result = await sandboxExecute(
+      "grimoire_query_codex",
+      { query, maxResults, filterTags },
+      (inputs) => {
+        const queryResult = queryCodex(
+          [...knowledge],  // Pass a copy so tool can't affect the frozen original
+          inputs["query"] as string,
+          {
+            maxResults: inputs["maxResults"] as number | undefined,
+            filterTags: inputs["filterTags"] as string[] | undefined,
+          },
+        );
+        return queryResult.response;
+      },
+      { knowledge, transport: "stdio" },
+    );
 
     return {
       content: [
         {
           type: "text" as const,
-          text: result.response,
+          text: result.output,
         },
       ],
     };
@@ -144,13 +179,23 @@ server.tool(
       ),
   },
   async ({ vulnerability }) => {
-    const result = getDefenseRecommendation(vulnerability);
+    const result = await sandboxExecute(
+      "grimoire_defense_recommend",
+      { vulnerability },
+      (inputs) => {
+        const rec = getDefenseRecommendation(
+          inputs["vulnerability"] as string,
+        );
+        return rec.fullResponse;
+      },
+      { transport: "stdio" },
+    );
 
     return {
       content: [
         {
           type: "text" as const,
-          text: result.fullResponse,
+          text: result.output,
         },
       ],
     };
@@ -175,14 +220,27 @@ server.tool(
       ),
   },
   async ({ watcher, question }) => {
-    const chunks = ensureKnowledgeLoaded();
-    const result = consultWatcher(watcher, question, chunks);
+    const knowledge = getKnowledge();
+
+    const result = await sandboxExecute(
+      "grimoire_watcher_consult",
+      { watcher, question },
+      (inputs) => {
+        const consultation = consultWatcher(
+          inputs["watcher"] as string,
+          inputs["question"] as string,
+          [...knowledge],  // Copy for isolation
+        );
+        return consultation.analysis;
+      },
+      { knowledge, transport: "stdio" },
+    );
 
     return {
       content: [
         {
           type: "text" as const,
-          text: result.analysis,
+          text: result.output,
         },
       ],
     };
@@ -202,13 +260,23 @@ server.tool(
       ),
   },
   async ({ query }) => {
-    const result = getFamilyThreatIntel(query);
+    const result = await sandboxExecute(
+      "grimoire_family_threat_intel",
+      { query },
+      (inputs) => {
+        const intel = getFamilyThreatIntel(
+          inputs["query"] as string,
+        );
+        return intel.fullResponse;
+      },
+      { transport: "stdio" },
+    );
 
     return {
       content: [
         {
           type: "text" as const,
-          text: result.fullResponse,
+          text: result.output,
         },
       ],
     };
@@ -273,6 +341,22 @@ server.resource(
   }),
 );
 
+// ─── Resource: Audit Stats ──────────────────────────────────────────
+
+server.resource(
+  "audit-stats",
+  "grimoire://audit-stats",
+  async () => ({
+    contents: [
+      {
+        uri: "grimoire://audit-stats",
+        mimeType: "application/json",
+        text: JSON.stringify(getAuditStats(), null, 2),
+      },
+    ],
+  }),
+);
+
 // ─── Start Server ───────────────────────────────────────────────────
 
 async function main(): Promise<void> {
@@ -283,8 +367,9 @@ async function main(): Promise<void> {
   console.error("🔮 Grimoire Oracle MCP Server started");
   console.error(`📚 Knowledge base root: ${REPO_ROOT}`);
   console.error("⚡ Transport: stdio");
+  console.error("🛡️  Sandbox: ENABLED — all tools run in isolated execution contexts");
   console.error("🛠️  Tools: grimoire_audit_scan, grimoire_query_codex, grimoire_defense_recommend, grimoire_watcher_consult, grimoire_family_threat_intel");
-  console.error("📦 Resources: grimoire://archetypes, grimoire://watchers, grimoire://families, grimoire://defenses");
+  console.error("📦 Resources: grimoire://archetypes, grimoire://watchers, grimoire://families, grimoire://defenses, grimoire://audit-stats");
 }
 
 main().catch((error: unknown) => {
