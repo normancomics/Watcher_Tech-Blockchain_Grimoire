@@ -98,4 +98,48 @@ User Intent + Biofeedback
 
 ---
 
+## 🔮 Grimoire Oracle — Sovereign MCP Server
+
+The repository includes a **fully operational MCP server** (`mcp-server/`) that monetizes the Grimoire knowledge base as AI-accessible tools with **x402 micropayments** and **ERC-8004 agent identity**.
+
+### Quick Start
+
+```bash
+cd mcp-server && npm install && npm run build
+
+# Run as MCP server (Claude Desktop, Cursor, etc.)
+npm start
+
+# Run as paid HTTP API (x402 micropayments)
+npm run start:http    # → http://localhost:8402
+```
+
+### Monetizable Tools
+
+| Tool | Price | What It Does |
+|------|-------|--------------|
+| `grimoire_audit_scan` | $0.50 | Scan Solidity for 7 exploit archetypes |
+| `grimoire_query_codex` | $0.10 | RAG query against 11K+ lines of security research |
+| `grimoire_defense_recommend` | $0.25 | Defense recommendations from 7 paradigms |
+| `grimoire_watcher_consult` | $0.75 | Consult 1 of 8 Watcher specialist agents |
+| `grimoire_family_threat_intel` | $0.30 | Threat intel from 13 Family framework |
+
+### Integration
+
+**MCP Client** (Claude Desktop / Cursor):
+```json
+{
+  "mcpServers": {
+    "grimoire-oracle": {
+      "command": "node",
+      "args": ["./mcp-server/dist/index.js"]
+    }
+  }
+}
+```
+
+**HTTP API** with x402 payments — see [`mcp-server/README.md`](mcp-server/README.md) for full documentation.
+
+---
+
 **THE ETERNAL SIGIL** — normancomics.eth 2026 A.D. — *The convergence is now on-chain.*
