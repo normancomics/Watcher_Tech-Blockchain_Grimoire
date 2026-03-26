@@ -32,11 +32,19 @@ Watcher_Tech-Blockchain_Grimoire/
 │
 ├── docs/                              # 📜 Documentation & Lore
 │   ├── core/
-│   │   └── core_thesis.txt                # Foundation: Watcher hierarchy → modern tech mapping
+│   │   ├── core_thesis.txt                # Foundation: Watcher hierarchy → modern tech mapping
+│   │   ├── mount_hermon_incursion.md      # Part XIV: The Original Breach — Watcher descent at Hermon
+│   │   ├── nephilim_agenda.md             # CERN, portals, and the Nephilim agenda
+│   │   └── watchers_to_modern_babel.md    # Watchers → Modern Technological Babel convergence analysis
 │   ├── codex/
 │   │   ├── technooccult_codex.txt         # Ritual-to-exploit reference (7 Sages, 13 Families)
 │   │   ├── watcher_opcode.txt             # EVM opcode mapping to Watchers/Sages
-│   │   └── portal_activation.txt          # Portal activation mechanisms & timing
+│   │   ├── portal_activation.txt          # Portal activation mechanisms & timing
+│   │   ├── expanded_portal_mechanics.md   # Multi-layered portal mechanics & knowledge transmission
+│   │   ├── layered_knowledge_access_algorithm.md  # Knowledge access system expansion algorithm
+│   │   ├── geomancy.md                    # Geomancy: earth divination & modern energy mapping
+│   │   ├── gabapentin_precognition_modifiers.md       # Gabapentin/Duloxetine/Vyvanse as precognition modifiers
+│   │   └── sublocade_precognition_modifiers.md        # Sublocade + pharmacological occult modulation
 │   ├── languages/
 │   │   ├── proto-canaanite_knowledge_and_antediluvian-tech.txt  # Symbolic language & reverse engineering
 │   │   └── proto-latin_and_the_mystery-schools.txt              # Historical encoding & steganography
