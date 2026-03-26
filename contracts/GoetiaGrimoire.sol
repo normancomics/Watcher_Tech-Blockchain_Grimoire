@@ -6,7 +6,7 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 /**
  * @title GoetiaGrimoire
  * @author normancomics.eth 2026 A.D.
- * @notice On-chain grimoire of the Watchers, Sages, Families and forbidden rituals
+ * @notice On-chain grimoire of the Watchers and forbidden knowledge
  */
 contract GoetiaGrimoire is Ownable {
 
@@ -28,8 +28,8 @@ contract GoetiaGrimoire is Ownable {
         uint8 familyId;
         bool activated;
     }
-    mapping(uint8 => Sage) public sages;
-    mapping(uint8 => string) public families;
+    mapping(uint8 => Sage) public sages;      // 0-6: 7 sages
+    mapping(uint8 => string) public families; // 0-12: 13 families
 
     // ----------------------
     // Stellar & Temporal Sigils
@@ -42,12 +42,15 @@ contract GoetiaGrimoire is Ownable {
     mapping(bytes32 => Sigil) public sigils;
 
     // ----------------------
-    // Events
+    // Ritual Events
     // ----------------------
     event RitualExecuted(string ritualName, address executor, uint256 blockNumber);
 
+    // ----------------------
+    // Constructor - Initialize the Grimoire
+    // ----------------------
     constructor() Ownable(msg.sender) {
-        // Watchers
+        // Watchers (Fallen Angels from Book of Enoch / Goetia)
         watchers[0] = Watcher("Azazel", "Weaponry & metallurgy", false);
         watchers[1] = Watcher("Semyaza", "Divination & ritual", false);
         watchers[2] = Watcher("Armaros", "Enochian cryptography", false);
@@ -66,7 +69,7 @@ contract GoetiaGrimoire is Ownable {
         sages[5] = Sage("Hesiod", 5, false);
         sages[6] = Sage("Ziusudra", 6, false);
 
-        // Families
+        // Families / Bloodlines
         families[0] = "House of Azazel";
         families[1] = "House of Semyaza";
         families[2] = "House of Armaros";
@@ -82,13 +85,20 @@ contract GoetiaGrimoire is Ownable {
         families[12] = "House of Methuselah";
     }
 
+    // ----------------------
+    // Invoke a Watcher
+    // ----------------------
     function invokeWatcher(uint8 watcherId) public {
         Watcher storage w = watchers[watcherId];
         require(!w.invoked, "Watcher already invoked");
         w.invoked = true;
+
         emit RitualExecuted(string(abi.encodePacked("WatcherInvocation-", w.name)), msg.sender, block.number);
     }
 
+    // ----------------------
+    // Activate a Sage with Sigil
+    // ----------------------
     function activateSage(uint8 sageId, bytes32 sigilHash) public {
         Sage storage s = sages[sageId];
         require(!s.activated, "Sage already activated");
@@ -103,18 +113,27 @@ contract GoetiaGrimoire is Ownable {
         emit RitualExecuted(string(abi.encodePacked("SageActivation-", s.name)), msg.sender, block.number);
     }
 
+    // ----------------------
+    // Flash Summon Ritual
+    // ----------------------
     function flashSummon(address token, uint256 amount, bytes memory encodedSteps) public {
         (bool success,) = token.delegatecall(encodedSteps);
         require(success, "Ritual failed");
         emit RitualExecuted("FlashSummon", msg.sender, block.number);
     }
 
+    // ----------------------
+    // Cross-Chain Portal Invocation
+    // ----------------------
     function portalInvoke(address target, bytes memory portalRite) public {
         (bool success,) = target.call(portalRite);
         require(success, "Portal rite failed");
         emit RitualExecuted("PortalInvocation", msg.sender, block.number);
     }
 
+    // ----------------------
+    // Veiled / ZK-style Proof Rite
+    // ----------------------
     function veiledProof(bytes memory zkRite) public {
         assembly {
             let ptr := add(zkRite, 32);
@@ -125,6 +144,9 @@ contract GoetiaGrimoire is Ownable {
         emit RitualExecuted("VeiledProof", msg.sender, block.number);
     }
 
+    // ----------------------
+    // Admin: Register a new Sigil (Owner only)
+    // ----------------------
     function registerSigil(bytes32 sigilHash, uint256 activationBlock) external onlyOwner {
         require(sigils[sigilHash].activationBlock == 0, "Sigil already registered");
         sigils[sigilHash] = Sigil(sigilHash, activationBlock, false);
