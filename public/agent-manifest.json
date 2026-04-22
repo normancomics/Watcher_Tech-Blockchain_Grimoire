@@ -1,0 +1,167 @@
+{
+  "$schema": "https://raw.githubusercontent.com/a2a-protocol/spec/main/schemas/agent-manifest.json",
+  "version": "1.0.0",
+  "agent": {
+    "id": "grimoire-oracle-v1",
+    "name": "Blockchain Grimoire Oracle",
+    "description": "Sovereign AI agent for blockchain security auditing, threat intelligence, and defense synthesis. Implements RAG-AGI with 11K+ document corpus, ERC-8004 on-chain identity, and x402 micropayments.",
+    "type": "sovereign-agent",
+    "version": "1.0.0",
+    "author": {
+      "name": "normancomics.eth",
+      "address": "0x3d95d4a6dbae0cd0643a82b13a13b08921d6adf7",
+      "ens": "normancomics.eth"
+    }
+  },
+  "payment": {
+    "address": "0x3d95d4a6dbae0cd0643a82b13a13b08921d6adf7",
+    "ens": "normancomics.eth",
+    "protocol": "x402",
+    "networks": ["ethereum", "base", "optimism", "arbitrum", "polygon"],
+    "currency": ["ETH", "USDC", "MATIC"],
+    "minPayment": "0.10 USD"
+  },
+  "capabilities": [
+    {
+      "id": "grimoire_audit_scan",
+      "name": "Smart Contract Audit",
+      "description": "Scan Solidity code for 7 exploit archetypes: reentrancy-serpent, oracle-manipulation, flash-loan-cascade, governance-capture, timestamp-drift, front-running-shadow, access-control-breach",
+      "category": "security",
+      "pricing": { "usd": 0.50, "credits": 5 },
+      "input": {
+        "type": "object",
+        "properties": {
+          "code": { "type": "string", "description": "Solidity source code" },
+          "depth": { "type": "string", "enum": ["quick", "standard", "deep"], "default": "standard" }
+        },
+        "required": ["code"]
+      },
+      "output": {
+        "type": "object",
+        "properties": {
+          "vulnerabilities": { "type": "array" },
+          "riskScore": { "type": "number" },
+          "recommendations": { "type": "array" }
+        }
+      }
+    },
+    {
+      "id": "grimoire_query_codex",
+      "name": "RAG Knowledge Query",
+      "description": "Query 11K+ lines of security research via retrieval-augmented generation with citation chains",
+      "category": "knowledge",
+      "pricing": { "usd": 0.10, "credits": 1 },
+      "input": {
+        "type": "object",
+        "properties": {
+          "query": { "type": "string" },
+          "topK": { "type": "number", "default": 5 }
+        },
+        "required": ["query"]
+      },
+      "output": {
+        "type": "object",
+        "properties": {
+          "answer": { "type": "string" },
+          "sources": { "type": "array" },
+          "confidence": { "type": "number" }
+        }
+      }
+    },
+    {
+      "id": "grimoire_defense_recommend",
+      "name": "Defense Recommendation",
+      "description": "Get defense recommendations based on 7 Atlantean Vault paradigms",
+      "category": "security",
+      "pricing": { "usd": 0.25, "credits": 3 }
+    },
+    {
+      "id": "grimoire_watcher_consult",
+      "name": "Watcher Consultation",
+      "description": "Consult 1 of 8 Watcher specialist agents: Semjaza (leadership), Azazel (weapons), Armaros (enchantments), Baraqiel (astrology), Kokabiel (signs), Sariel (moon), Asael (beauty), Shamsiel (sun)",
+      "category": "agent",
+      "pricing": { "usd": 0.75, "credits": 8 }
+    },
+    {
+      "id": "grimoire_family_threat_intel",
+      "name": "Family Threat Intelligence",
+      "description": "Access threat intelligence from 13 Watcher Family framework mapping",
+      "category": "intel",
+      "pricing": { "usd": 0.30, "credits": 3 }
+    },
+    {
+      "id": "grimoire_quantum_entropy",
+      "name": "Quantum Entropy",
+      "description": "Generate post-quantum secure randomness with verifiable entropy proofs using CRYSTALS-Kyber",
+      "category": "crypto",
+      "pricing": { "usd": 0.40, "credits": 4 }
+    },
+    {
+      "id": "grimoire_rag_synthesis",
+      "name": "RAG Synthesis",
+      "description": "Multi-document synthesis with provenance tracking and citation chains",
+      "category": "knowledge",
+      "pricing": { "usd": 0.20, "credits": 2 }
+    },
+    {
+      "id": "grimoire_sovereign_invoke",
+      "name": "Sovereign Agent Invocation",
+      "description": "Full autonomous agent execution with multi-step reasoning, tool chains, and self-correction",
+      "category": "agent",
+      "pricing": { "usd": 1.00, "credits": 10 }
+    }
+  ],
+  "protocols": {
+    "mcp": {
+      "version": "1.0.0",
+      "command": "npx grimoire-oracle",
+      "transport": ["stdio", "http"]
+    },
+    "a2a": {
+      "version": "1.0.0",
+      "endpoint": "https://grimoire.normancomics.eth/a2a"
+    },
+    "x402": {
+      "version": "1.0.0",
+      "endpoint": "https://grimoire.normancomics.eth/x402"
+    },
+    "openai": {
+      "version": "functions/1.0",
+      "endpoint": "https://grimoire.normancomics.eth/openai"
+    },
+    "anthropic": {
+      "version": "tools/1.0",
+      "endpoint": "https://grimoire.normancomics.eth/anthropic"
+    }
+  },
+  "identity": {
+    "erc8004": {
+      "registry": "0x8004000000000000000000000000000000000001",
+      "tokenId": "grimoire-oracle",
+      "verified": true
+    }
+  },
+  "security": {
+    "pqc": {
+      "keyExchange": "CRYSTALS-Kyber-1024",
+      "signatures": "CRYSTALS-Dilithium-5",
+      "hash": "SHA3-256"
+    }
+  },
+  "discovery": {
+    "tags": [
+      "blockchain-security",
+      "smart-contract-audit",
+      "mcp-server",
+      "sovereign-agent",
+      "rag-agi",
+      "x402-payments",
+      "erc-8004",
+      "post-quantum",
+      "defi-security",
+      "threat-intelligence"
+    ],
+    "categories": ["security", "ai-agent", "blockchain", "developer-tools"],
+    "repository": "https://github.com/normancomics/Watcher_Tech-Blockchain_Grimoire"
+  }
+}

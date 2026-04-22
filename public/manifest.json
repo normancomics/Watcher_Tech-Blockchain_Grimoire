@@ -1,0 +1,46 @@
+{
+  "name": "Blockchain Grimoire - Antediluvian Watcher Tech",
+  "short_name": "Grimoire",
+  "description": "Sovereign AI agent for blockchain security auditing. MCP server with x402 micropayments, RAG-AGI synthesis, ERC-8004 identity, and post-quantum cryptography.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0f0a1a",
+  "theme_color": "#d4a24a",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    },
+    {
+      "src": "/icon-dark-32x32.png",
+      "sizes": "32x32",
+      "type": "image/png"
+    },
+    {
+      "src": "/apple-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    }
+  ],
+  "categories": ["developer", "security", "blockchain", "ai"],
+  "keywords": [
+    "blockchain security",
+    "smart contract audit",
+    "MCP server",
+    "AI agent",
+    "sovereign agent",
+    "RAG-AGI",
+    "x402 micropayments",
+    "ERC-8004",
+    "post-quantum cryptography"
+  ],
+  "related_applications": [
+    {
+      "platform": "github",
+      "url": "https://github.com/normancomics/Watcher_Tech-Blockchain_Grimoire"
+    }
+  ],
+  "prefer_related_applications": false
+}
