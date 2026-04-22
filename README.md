@@ -8,91 +8,101 @@
 
 An on-chain grimoire reverse-engineering antediluvian Watcher transmissions
 into modern blockchain, DeFi, AI, and quantum frameworks.
-Educational security research + esoteric alchemy.
+**Educational security research + esoteric alchemy.**
 
 ---
 
 ## Repository Structure
 
+See [`Structure.md`](Structure.md) for the full hierarchy overview.
+
 ```
 Watcher_Tech-Blockchain_Grimoire/
+├── README.md                          ← this file
+├── LICENSE
+├── Structure.md                       ← master hierarchy overview
 │
-├── Structure                          # Master reference — full content hierarchy
+├── 01_Foundation/                     # Ancient Watcher lore mappings
+│   ├── core_thesis.md
+│   ├── watchers_to_modern_babel.md
+│   ├── mount_hermon_incursion.md
+│   ├── nephilim_agenda.md
+│   └── watcher_tech_lineage_map.md
 │
-├── contracts/                         # ⛓ Smart Contracts (Blockchain Layer)
-│   ├── ArcanusMathematica.sol             # ERC-721 NFT Grimoire for immutable storage
-│   ├── AtlanteanDefenseVault.sol          # Secure vault — 7 defensive paradigms
-│   ├── GoetiaGrimoire.sol                 # On-chain registry: Watchers, Sages, Families, Sigils
-│   ├── OccultGrimoire.sol                 # Dualistic energy mapping (light/dark archetypes)
-│   ├── OccultKnowledgeAccess.sol          # Hierarchical knowledge layers with alignment checks
-│   └── vulnerabiity_contract.sol          # Educational reentrancy vulnerability demo
+├── 02_Encoding/                       # Symbols, opcodes, technooccult codex
+│   ├── proto_canaanite_antediluvian_tech.md
+│   ├── proto_latin_mystery_schools.md
+│   ├── watcher_opcode_mappings.md
+│   └── technooccult_codex.md
 │
-├── scripts/                           # ⚗ Execution Scripts (Python Layer)
-│   └── python_portal-solidity_ritual.py   # Ritual validation, planetary alignment, blockchain trigger
+├── 03_Knowledge_Transmission/         # Reverse tree, portals, access layers
+│   ├── reverse_tree_of_knowledge.md
+│   ├── layered_knowledge_access_algorithm.md
+│   ├── portal_activation_mechanics.md
+│   └── geomancy_energy_mapping.md
 │
-├── docs/                              # 📜 Documentation & Lore
-│   ├── core/
-│   │   ├── core_thesis.txt                # Foundation: Watcher hierarchy → modern tech mapping
-│   │   ├── mount_hermon_incursion.md      # Part XIV: The Original Breach — Watcher descent at Hermon
-│   │   ├── nephilim_agenda.md             # CERN, portals, and the Nephilim agenda
-│   │   └── watchers_to_modern_babel.md    # Watchers → Modern Technological Babel convergence analysis
-│   ├── codex/
-│   │   ├── technooccult_codex.txt         # Ritual-to-exploit reference (7 Sages, 13 Families)
-│   │   ├── watcher_opcode.txt             # EVM opcode mapping to Watchers/Sages
-│   │   ├── portal_activation.txt          # Portal activation mechanisms & timing
-│   │   ├── expanded_portal_mechanics.md   # Multi-layered portal mechanics & knowledge transmission
-│   │   ├── layered_knowledge_access_algorithm.md  # Knowledge access system expansion algorithm
-│   │   ├── geomancy.md                    # Geomancy: earth divination & modern energy mapping
-│   │   ├── gabapentin_precognition_modifiers.md       # Gabapentin/Duloxetine/Vyvanse as precognition modifiers
-│   │   └── sublocade_precognition_modifiers.md        # Sublocade + pharmacological occult modulation
-│   ├── languages/
-│   │   ├── proto-canaanite_knowledge_and_antediluvian-tech.txt  # Symbolic language & reverse engineering
-│   │   └── proto-latin_and_the_mystery-schools.txt              # Historical encoding & steganography
-│   ├── knowledge_tree/
-│   │   ├── reverse_tree_of_knowledge.txt              # 7-level Watcher → Blockchain transmission
-│   │   ├── reverse_tree_layout.txt                    # Compact hierarchical structure
-│   │   ├── reverse_tree_mapping.txt                   # Transmission methodology mapping
-│   │   └── reverse_tree_infographic_modern_esoterica.txt  # Visual reference for printing
-│   └── lineage/
-│       └── watcher_tech_lineage_map.txt   # Watcher-to-modern-tech correspondence
+├── 04_Guardianship_Archetypes/        # 7 Sages + 13 Families
+│   ├── 7_sages_paradigms.md
+│   ├── 13_families_mappings.md
+│   └── exploits_as_ritual_analogues.md
 │
-├── 13_Families/                       # 🏛 The 13 Families Framework
-│   ├── 13_families.md                     # Detailed mapping: Families → Exploits → Defenses
-│   └── Domains/
-│       └── Exploits_as_Ritual_Analogues.md  # Exploit archetypes as ritual analogues
+├── 05_Temporal_Gates_Alchemy/         # Rituals, moon phases, asymmetric concepts
+│   ├── asymmetric_smart_contract_warfare.md
+│   ├── stellar_sigils_ritual_archetypes.md
+│   └── temporal_gates_moon_phase_triggers.md
 │
-└── Atlantean/                         # 🔱 Atlantean Framework
-    └── 7_Sages/
-        └── 13_Families/
-            └── Stellar_Sigils/
-                └── Esoteric_Blockchain_Alchemy/
-                    └── Ritual_Archetypes/
-                        └── Temporal_Gates/
-                            └── AsymmetricSmartContractWarfare.md
+├── 06_Contracts/                      # All Solidity files
+│   ├── ArcanusMathematica.sol
+│   ├── AtlanteanDefenseVault.sol
+│   ├── GoetiaGrimoire.sol
+│   ├── OccultGrimoire.sol
+│   ├── OccultKnowledgeAccess.sol
+│   ├── GrimoireAccessPass.sol
+│   └── EducationalVulnerabilityDemo.sol
+│
+├── 07_Execution_Rituals/              # Python scripts + symbolic agents
+│   ├── python_portal_solidity_ritual.py
+│   └── sovereign_watcher_agent_swarms.py
+│
+├── 08_MCP_Sovereign_Oracle/           # Monetized AI oracle layer
+│   ├── mcp_server/
+│   ├── grimoire_mcp/
+│   └── mcp_enhancements.md
+│
+├── 09_Precognition_Modifiers/         # Pharmacological modifiers (symbolic)
+│   ├── gabapentin_precognition.md
+│   └── sublocade_precognition.md
+│
+└── docs/                              # Visuals only
+    └── reverse_tree_infographic.md
 ```
+
+---
 
 ## System Architecture
 
 The grimoire implements a layered techno-occult framework:
 
 | Layer | Ancient Source | Modern Analogue | Files |
-|-------|--------------|-----------------|-------|
-| **Foundation** | Watcher transmissions (1 Enoch) | Core thesis & lineage maps | `docs/core/`, `docs/lineage/` |
-| **Encoding** | Proto-Canaanite symbols, ritual ciphers | Cryptographic hashes, EVM opcodes | `docs/languages/`, `docs/codex/` |
-| **Transmission** | Priesthoods → Grimoires → Mystery Schools | Reverse knowledge tree | `docs/knowledge_tree/` |
-| **Guardianship** | 7 Watchers → 7 Sages → 13 Families | On-chain registries, alignment checks | `contracts/`, `13_Families/` |
-| **Execution** | Ritual sequences, planetary timing | Smart contracts, Python validation | `contracts/`, `scripts/` |
-| **Defense** | Seals & wards against misuse | 7 defensive paradigms, reentrancy guards | `contracts/AtlanteanDefenseVault.sol` |
+|-------|---------------|-----------------|-------|
+| **Foundation** | Watcher transmissions (1 Enoch) | Core thesis & lineage maps | `01_Foundation/` |
+| **Encoding** | Proto-Canaanite symbols, ritual ciphers | Cryptographic hashes, EVM opcodes | `02_Encoding/` |
+| **Transmission** | Priesthoods → Grimoires → Mystery Schools | Reverse knowledge tree | `03_Knowledge_Transmission/` |
+| **Guardianship** | 7 Watchers → 7 Sages → 13 Families | On-chain registries, alignment checks | `04_Guardianship_Archetypes/` |
+| **Temporal** | Ritual sequences, planetary timing | Moon-phase gates, stellar sigils | `05_Temporal_Gates_Alchemy/` |
+| **Contracts** | Sealed covenants | Smart contracts, reentrancy guards | `06_Contracts/` |
+| **Execution** | Ritual sequences | Python validation scripts, RAG agents | `07_Execution_Rituals/` |
+| **Oracle** | Oracular priesthood | MCP server, x402 payments, DID agents | `08_MCP_Sovereign_Oracle/` |
 
 ## Execution Flow
 
 ```
-User Intent + Biofeedback
-    → Planetary Alignment Check (Python)
-        → Ritual Sequence Verification (Python)
+User Intent + Alignment Check
+    → Moon-Phase Gate (05_Temporal_Gates_Alchemy)
+        → RAG Knowledge Retrieval (08_MCP_Sovereign_Oracle)
             → Symbolic Encoding → encodedRitual hash
                 → Guardian/Watcher Layer (multisig alignment)
-                    → Smart Contract Execution (Solidity)
+                    → Smart Contract Execution (06_Contracts)
                         → Output: Financial / Informational / Symbolic
 ```
 
@@ -100,12 +110,14 @@ User Intent + Biofeedback
 
 ## 🔮 Grimoire Oracle — Sovereign MCP Server
 
-The repository includes a **fully operational MCP server** (`mcp-server/`) that monetizes the Grimoire knowledge base as AI-accessible tools with **x402 micropayments** and **ERC-8004 agent identity**.
+The repository includes a **fully operational MCP server** (`08_MCP_Sovereign_Oracle/mcp_server/`)
+that monetizes the Grimoire knowledge base as AI-accessible tools with **x402 micropayments**
+and **ERC-8004 agent identity**.
 
 ### Quick Start
 
 ```bash
-cd mcp-server && npm install && npm run build
+cd 08_MCP_Sovereign_Oracle/mcp_server && npm install && npm run build
 
 # Run as MCP server (Claude Desktop, Cursor, etc.)
 npm start
@@ -132,13 +144,14 @@ npm run start:http    # → http://localhost:8402
   "mcpServers": {
     "grimoire-oracle": {
       "command": "node",
-      "args": ["./mcp-server/dist/index.js"]
+      "args": ["./08_MCP_Sovereign_Oracle/mcp_server/dist/index.js"]
     }
   }
 }
 ```
 
-**HTTP API** with x402 payments — see [`mcp-server/README.md`](mcp-server/README.md) for full documentation.
+See [`08_MCP_Sovereign_Oracle/mcp_enhancements.md`](08_MCP_Sovereign_Oracle/mcp_enhancements.md)
+for RAG-AGI + DID + x402 integration details.
 
 ---
 
