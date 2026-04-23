@@ -1,0 +1,78 @@
+{
+  "description": "MCP/AI skill keywords for agent marketplace discovery — Watcher Tech Grimoire",
+  "lastUpdated": "2026-01-01",
+  "mcp_skill_keywords": {
+    "primary": [
+      "MCP server esoteric",
+      "Model Context Protocol blockchain",
+      "MCP knowledge retrieval",
+      "esoteric RAG server",
+      "blockchain MCP tools",
+      "AI skill blockchain analysis",
+      "autonomous agent esoteric knowledge",
+      "MCP lunar calculation",
+      "sigil generation MCP",
+      "ancient text NLP MCP"
+    ],
+    "long_tail": [
+      "MCP server grimoire knowledge retrieval",
+      "lunar oracle MCP blockchain",
+      "sigil hash generation AI tool",
+      "esoteric corpus RAG retrieval",
+      "blockchain exploit detection AI agent",
+      "ancient text parser NLP",
+      "ritual validation AI agent",
+      "blockchain divination prediction tool",
+      "gematria address encoding tool",
+      "planetary consensus MCP server"
+    ]
+  },
+  "agent_marketplace_keywords": {
+    "primary": [
+      "sovereign AI agent",
+      "ERC-8004 agent card",
+      "blockchain guardian agent",
+      "watcher agent deploy",
+      "agent bonding blockchain",
+      "on-chain AI identity",
+      "agent reputation system",
+      "autonomous agent marketplace",
+      "AI agent swarm blockchain",
+      "esoteric AI agent"
+    ]
+  },
+  "x402_payment_keywords": {
+    "primary": [
+      "x402 payment blockchain",
+      "HTTP 402 cryptocurrency",
+      "AI payment micropayment",
+      "agent-to-agent payment",
+      "machine payment protocol",
+      "spell payment blockchain",
+      "knowledge access payment",
+      "autonomous payment agent"
+    ]
+  },
+  "content_clusters": {
+    "cluster_1": {
+      "pillar": "Sovereign AI Agents",
+      "supporting_topics": [
+        "ERC-8004 specification",
+        "Agent identity on blockchain",
+        "Reputation management systems",
+        "Agent-to-agent communication",
+        "Watcher archon deployment"
+      ]
+    },
+    "cluster_2": {
+      "pillar": "Esoteric Blockchain Origins",
+      "supporting_topics": [
+        "Templar banking → DeFi",
+        "Kabbalah → Merkle trees",
+        "Mystery schools → Consensus",
+        "Sacred geometry → Elliptic curves",
+        "Lunar cycles → Exploit detection"
+      ]
+    }
+  }
+}
