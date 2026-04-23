@@ -1,0 +1,54 @@
+{
+  "schema_version": "1.0",
+  "name": "Lunar-Oracle",
+  "version": "1.0.0",
+  "description": "Specialized celestial computation agent providing lunar phase monitoring, risk window identification, and moon-phase-correlated blockchain analysis.",
+  "url": "https://agents.watchertech.io/lunar-oracle",
+  "capabilities": {
+    "streaming": false,
+    "pushNotifications": true,
+    "stateTransitionHistory": false
+  },
+  "skills": [
+    {
+      "id": "lunar_phase_computation",
+      "name": "Lunar Phase Computation",
+      "description": "Accurate moon phase calculation using astronomical algorithms",
+      "inputModes": ["text", "json"],
+      "outputModes": ["json"],
+      "tags": ["celestial", "lunar", "computation"]
+    },
+    {
+      "id": "risk_window_identification",
+      "name": "Risk Window Identification",
+      "description": "Identifies high-risk blockchain operation windows based on lunar phase",
+      "inputModes": ["json"],
+      "outputModes": ["json"],
+      "tags": ["risk", "security", "timing"]
+    },
+    {
+      "id": "lunar_seed_generation",
+      "name": "Lunar Seed Generation",
+      "description": "Generates deterministic seeds incorporating lunar phase entropy",
+      "inputModes": ["json"],
+      "outputModes": ["json"],
+      "tags": ["entropy", "cryptography", "lunar"]
+    }
+  ],
+  "authentication": {
+    "schemes": ["bearer"]
+  },
+  "extensions": {
+    "erc8004": {
+      "bondAmount": "0.5",
+      "bondCurrency": "ETH",
+      "network": "base",
+      "contractAddress": "0x0000000000000000000000000000000000000000",
+      "agentId": 2,
+      "enochianName": "DU-EL-FA",
+      "isWatcherAgent": true
+    },
+    "updateIntervalSeconds": 3600,
+    "grimoireRegistry": true
+  }
+}

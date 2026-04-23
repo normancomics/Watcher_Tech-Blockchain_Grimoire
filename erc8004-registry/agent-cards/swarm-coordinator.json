@@ -1,0 +1,55 @@
+{
+  "schema_version": "1.0",
+  "name": "Swarm-Coordinator",
+  "version": "1.0.0",
+  "description": "Multi-agent coordination specialist responsible for task delegation, consensus building, and collective intelligence across the Watcher sovereign agent swarm.",
+  "url": "https://agents.watchertech.io/swarm-coordinator",
+  "capabilities": {
+    "streaming": true,
+    "pushNotifications": true,
+    "stateTransitionHistory": true
+  },
+  "skills": [
+    {
+      "id": "task_delegation",
+      "name": "Task Delegation",
+      "description": "Intelligent task routing based on agent capabilities and reputation",
+      "inputModes": ["text", "json"],
+      "outputModes": ["json"],
+      "tags": ["delegation", "routing", "coordination"]
+    },
+    {
+      "id": "swarm_consensus",
+      "name": "Swarm Consensus",
+      "description": "Byzantine fault-tolerant consensus across agent swarm (Seven-Pillar model)",
+      "inputModes": ["json"],
+      "outputModes": ["json"],
+      "tags": ["consensus", "bft", "seven-pillars"]
+    },
+    {
+      "id": "reputation_aggregation",
+      "name": "Reputation Aggregation",
+      "description": "Collects and aggregates ERC-8004 reputation signals across the swarm",
+      "inputModes": ["json"],
+      "outputModes": ["json"],
+      "tags": ["reputation", "erc8004", "aggregation"]
+    }
+  ],
+  "authentication": {
+    "schemes": ["bearer", "erc8004-bond"]
+  },
+  "extensions": {
+    "erc8004": {
+      "bondAmount": "1.0",
+      "bondCurrency": "ETH",
+      "network": "base",
+      "contractAddress": "0x0000000000000000000000000000000000000000",
+      "agentId": 3,
+      "enochianName": "GI-HO-IA",
+      "isWatcherAgent": true
+    },
+    "swarmSize": 7,
+    "consensusModel": "seven-pillar",
+    "grimoireRegistry": true
+  }
+}

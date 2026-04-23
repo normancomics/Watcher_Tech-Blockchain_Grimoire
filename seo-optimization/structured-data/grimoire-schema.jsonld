@@ -1,0 +1,60 @@
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "Watcher Tech Blockchain Grimoire",
+  "url": "https://watchertech.io",
+  "description": "The esoteric origins of blockchain technology. Ancient wisdom meets distributed systems — exploring the sacred geometry, mystery school traditions, and historical precedents behind modern cryptographic systems.",
+  "publisher": {
+    "@type": "Organization",
+    "name": "Watcher Tech",
+    "url": "https://watchertech.io",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://watchertech.io/logo.png"
+    }
+  },
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": "https://watchertech.io/search?q={search_term_string}",
+    "query-input": "required name=search_term_string"
+  },
+  "hasPart": [
+    {
+      "@type": "CreativeWork",
+      "name": "Esoteric Core",
+      "description": "Ancient esoteric traditions as blockchain precursors",
+      "url": "https://watchertech.io/library?domain=esoteric",
+      "about": {
+        "@type": "Thing",
+        "name": "Esoteric Blockchain Origins"
+      }
+    },
+    {
+      "@type": "SoftwareApplication",
+      "name": "Technical Grimoire",
+      "description": "Smart contracts, algorithms, and mathematics of esoteric blockchain",
+      "applicationCategory": "Blockchain",
+      "url": "https://watchertech.io/technical"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "name": "Sovereign Agents",
+      "description": "ERC-8004 autonomous AI agents for blockchain monitoring",
+      "applicationCategory": "ArtificialIntelligence",
+      "url": "https://watchertech.io/agents"
+    }
+  ],
+  "mainEntity": {
+    "@type": "Book",
+    "name": "Watcher Tech Blockchain Grimoire",
+    "description": "A comprehensive esoteric guide to blockchain technology origins",
+    "genre": "Technical/Esoteric",
+    "about": [
+      { "@type": "Thing", "name": "Blockchain" },
+      { "@type": "Thing", "name": "Kabbalah" },
+      { "@type": "Thing", "name": "Sacred Geometry" },
+      { "@type": "Thing", "name": "Smart Contracts" },
+      { "@type": "Thing", "name": "Consensus Algorithms" }
+    ]
+  }
+}

@@ -1,0 +1,87 @@
+{
+  "description": "Target search terms for esoteric blockchain content — Watcher Tech Grimoire SEO strategy",
+  "lastUpdated": "2026-01-01",
+  "categories": {
+    "primary_keywords": {
+      "description": "High-value, high-competition primary targets",
+      "terms": [
+        "blockchain history",
+        "blockchain ancient history",
+        "cryptocurrency origins",
+        "esoteric blockchain",
+        "sacred geometry blockchain",
+        "ancient technology blockchain",
+        "occult cryptography",
+        "hermetic blockchain",
+        "Kabbalistic smart contracts",
+        "mystery school consensus"
+      ]
+    },
+    "long_tail_keywords": {
+      "description": "Lower competition, higher conversion long-tail terms",
+      "terms": [
+        "fallen angel technology blockchain",
+        "Watchers Grigori blockchain",
+        "Enochian consensus algorithm",
+        "Pythagorean blockchain nodes",
+        "Templar banking DeFi history",
+        "Venetian accounting blockchain",
+        "Kabbalah Merkle tree",
+        "gematria Ethereum address",
+        "sacred geometry elliptic curve",
+        "lunar exploit detection blockchain",
+        "moon phase blockchain attacks",
+        "Rosicrucian cryptography",
+        "ancient mystery school consensus",
+        "1 Enoch blockchain",
+        "Nephilim megalithic mathematics"
+      ]
+    },
+    "technical_esoteric": {
+      "description": "Technical + esoteric crossover terms for developer audience",
+      "terms": [
+        "sigil hashing algorithm",
+        "planetary consensus mechanism",
+        "Qliphotic fork resistance",
+        "enochian validator tiers",
+        "alchemical blockchain parallels",
+        "hermetic consensus protocol",
+        "Pythagorean validator harmony",
+        "gematria address encoding",
+        "sacred geometry curves cryptography",
+        "lunar oracle risk assessment blockchain"
+      ]
+    },
+    "agent_ai_terms": {
+      "description": "AI agent and MCP-related search terms",
+      "terms": [
+        "sovereign AI agent blockchain",
+        "ERC-8004 agent standard",
+        "autonomous blockchain agent",
+        "AI agent esoteric knowledge",
+        "watcher agent cryptocurrency",
+        "blockchain guardian agent",
+        "swarm intelligence blockchain",
+        "MCP esoteric knowledge server",
+        "agent reputation blockchain",
+        "x402 payment AI agent"
+      ]
+    }
+  },
+  "negative_keywords": [
+    "scam",
+    "hack",
+    "ponzi",
+    "rug pull"
+  ],
+  "competitor_gaps": {
+    "description": "Topics where competitor content is thin",
+    "opportunities": [
+      "Ancient Mesopotamian contract law → Smart contracts",
+      "Freemason lodge structure → DAO governance",
+      "Rosicrucian secrecy → Zero-knowledge proofs",
+      "Templar letter of credit → Payment channels",
+      "Kabbalistic Tree of Life → Merkle trees"
+    ]
+  }
+}
