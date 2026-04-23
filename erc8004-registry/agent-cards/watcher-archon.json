@@ -1,0 +1,54 @@
+{
+  "schema_version": "1.0",
+  "name": "Watcher-Archon",
+  "version": "1.0.0",
+  "description": "Supreme guardian agent of the Watcher Tech Blockchain Grimoire. Coordinates the sovereign agent swarm, monitors blockchain threats, and maintains esoteric knowledge integrity.",
+  "url": "https://agents.watchertech.io/archon",
+  "capabilities": {
+    "streaming": true,
+    "pushNotifications": true,
+    "stateTransitionHistory": true
+  },
+  "skills": [
+    {
+      "id": "exploit_detection",
+      "name": "Exploit Detection",
+      "description": "Real-time blockchain exploit pattern detection using Qliphotic analysis",
+      "inputModes": ["text", "json"],
+      "outputModes": ["text", "json"],
+      "tags": ["security", "blockchain", "monitoring"]
+    },
+    {
+      "id": "swarm_coordination",
+      "name": "Swarm Coordination",
+      "description": "Coordinates multiple sovereign agents for complex task execution",
+      "inputModes": ["text", "json"],
+      "outputModes": ["text", "json"],
+      "tags": ["coordination", "multi-agent", "orchestration"]
+    },
+    {
+      "id": "blockchain_divination",
+      "name": "Blockchain Divination",
+      "description": "Predictive analysis using lunar cycles and historical blockchain patterns",
+      "inputModes": ["text"],
+      "outputModes": ["text", "json"],
+      "tags": ["prediction", "lunar", "analysis"]
+    }
+  ],
+  "authentication": {
+    "schemes": ["bearer", "erc8004-bond"]
+  },
+  "extensions": {
+    "erc8004": {
+      "bondAmount": "2.0",
+      "bondCurrency": "ETH",
+      "network": "base",
+      "contractAddress": "0x0000000000000000000000000000000000000000",
+      "agentId": 1,
+      "enochianName": "ZA-BI-CO",
+      "isWatcherAgent": true
+    },
+    "lunarRiskCheck": true,
+    "grimoireRegistry": true
+  }
+}

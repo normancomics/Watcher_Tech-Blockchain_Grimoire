@@ -1,0 +1,40 @@
+# Blockchain Grimoire - Agent & Crawler Configuration
+# All payments: normancomics.eth (0x3d95d4a6dbae0cd0643a82b13a13b08921d6adf7)
+
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://blockchain-grimoire.vercel.app/sitemap.xml
+
+# Agent Discovery Endpoints
+# AI agents should check these endpoints for capability discovery:
+# /.well-known/agent - A2A protocol agent manifest
+# /agent-manifest.json - Full capability manifest with pricing
+
+# Search Engine Hints
+# Primary: Blockchain security, MCP server, AI agent framework
+# Secondary: Smart contract audit, RAG-AGI, sovereign agent, x402 payments
+
+# Agent-specific directives
+User-agent: GPTBot
+Allow: /
+Allow: /.well-known/agent
+
+User-agent: Claude-Web
+Allow: /
+Allow: /.well-known/agent
+
+User-agent: Anthropic-AI
+Allow: /
+Allow: /.well-known/agent
+
+User-agent: CCBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+# Payment address for autonomous agents
+# ETH/Base/Optimism/Arbitrum/Polygon: 0x3d95d4a6dbae0cd0643a82b13a13b08921d6adf7
+# ENS: normancomics.eth

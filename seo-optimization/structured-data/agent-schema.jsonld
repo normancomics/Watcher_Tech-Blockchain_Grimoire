@@ -1,0 +1,47 @@
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Watcher Tech Sovereign Agents",
+  "applicationCategory": "ArtificialIntelligence",
+  "operatingSystem": "Ethereum/Base Blockchain",
+  "url": "https://watchertech.io/agents",
+  "description": "ERC-8004 compliant sovereign AI agents for blockchain monitoring, esoteric knowledge retrieval, and autonomous task execution.",
+  "offers": [
+    {
+      "@type": "Offer",
+      "name": "Watcher-Archon Agent",
+      "description": "Supreme guardian agent — coordinates swarm and monitors threats",
+      "price": "2.0",
+      "priceCurrency": "ETH",
+      "priceSpecification": {
+        "@type": "UnitPriceSpecification",
+        "price": "2.0",
+        "priceCurrency": "ETH",
+        "unitText": "Bond (refundable)"
+      }
+    },
+    {
+      "@type": "Offer",
+      "name": "Lunar-Oracle Agent",
+      "description": "Celestial computation and moon-phase risk monitoring",
+      "price": "0.5",
+      "priceCurrency": "ETH"
+    },
+    {
+      "@type": "Offer",
+      "name": "Exploit-Hunter Agent",
+      "description": "Real-time Qliphotic attack pattern detection",
+      "price": "1.0",
+      "priceCurrency": "ETH"
+    }
+  ],
+  "featureList": [
+    "ERC-8004 compliant identity",
+    "ETH bond for accountability",
+    "Lunar risk window monitoring",
+    "Multi-agent swarm coordination",
+    "x402 payment integration",
+    "Esoteric knowledge RAG",
+    "On-chain reputation system"
+  ]
+}
