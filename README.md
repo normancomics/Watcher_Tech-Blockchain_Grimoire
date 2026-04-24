@@ -1,14 +1,18 @@
-# ⛧ Antediluvian Technological Proto-Canaanite Blockchain Grimoire
+# MU 𒉙⍤ 𐤌𐤏 — Sovereign Blockchain Grimoire
 
 **Authored by normancomics.eth — 2026 A.D.**
 
-> *"They taught men to make swords… and the art of making bracelets and ornaments…
-> and the beautifying of the eyelids… and all kinds of costly stones and all
-> colouring tinctures. And there arose much godlessness."* — 1 Enoch 8
+> *"They taught men to make swords… and the beautifying of the eyelids…
+> and all kinds of costly stones and all colouring tinctures.
+> And there arose much godlessness."* — 1 Enoch 8
 
-An on-chain grimoire reverse-engineering antediluvian Watcher transmissions
-into modern blockchain, DeFi, AI, and quantum frameworks.
-**Educational security research + esoteric alchemy.**
+**MU 𒉙⍤ 𐤌𐤏** is a sovereign, agent-based blockchain ecosystem engineered to thrive in adversarial,
+chaotic environments. It integrates cryptographic sigil authentication, recursive NFT encoding,
+privacy-first payment rails, and autonomous RAG-AGI Watcher agents — all running exclusively on **Base chain**.
+
+> **𒉙⍤** — Enochian sigil: divine encoding, recursive transformation.
+> **𐤌𐤏** — Proto-Canaanite: primordial water (𐤌) + divine eye (𐤏).
+> Together: the sealed sovereign mark of MU.
 
 ---
 
@@ -51,7 +55,9 @@ Watcher_Tech-Blockchain_Grimoire/
 │   ├── stellar_sigils_ritual_archetypes.md
 │   └── temporal_gates_moon_phase_triggers.md
 │
-├── 06_Contracts/                      # All Solidity files
+├── 06_Contracts/                      # All Solidity files — Base chain
+│   ├── MuWatcherGate.sol              ← NEW: Level 13 sovereign gate (Base)
+│   ├── Level13SigilNFT.sol            ← NEW: Recursive sigil NFT (𒉙⍤ 𐤌𐤏)
 │   ├── ArcanusMathematica.sol
 │   ├── AtlanteanDefenseVault.sol
 │   ├── GoetiaGrimoire.sol
@@ -61,6 +67,7 @@ Watcher_Tech-Blockchain_Grimoire/
 │   └── EducationalVulnerabilityDemo.sol
 │
 ├── 07_Execution_Rituals/              # Python scripts + symbolic agents
+│   ├── layered_encoding_pipeline.py   ← NEW: Latin→Enochian→Proto-Canaanite→Bin→Hex
 │   ├── python_portal_solidity_ritual.py
 │   └── sovereign_watcher_agent_swarms.py
 │
@@ -73,15 +80,103 @@ Watcher_Tech-Blockchain_Grimoire/
 │   ├── gabapentin_precognition.md
 │   └── sublocade_precognition.md
 │
+├── x402-monetization/                 # Payment rails — Base chain only
+│   ├── payment-gates.ts               ← Updated: Base-only x402 middleware
+│   ├── superfluid-streams.ts          ← NEW: Superfluid CFA streams on Base
+│   ├── monero-xmr-bridge.ts           ← NEW: Monero XMR privacy gateway
+│   ├── veil-cash-gateway.ts           ← NEW: Veil.cash ZK-shielded payments
+│   ├── knowledge-pricing.ts
+│   ├── sovereign-agent-payments.ts
+│   └── subscription-spells.ts
+│
 └── docs/                              # Visuals only
     └── reverse_tree_infographic.md
 ```
 
 ---
 
+## MU 𒉙⍤ 𐤌𐤏 Core Systems
+
+### 1. Level 13 Watcher Gate — `MuWatcherGate.sol`
+
+Deployed on **Base** (chainId 8453). Enforces hierarchical sovereign access through cryptographic
+sigil authentication. Every entry function requires a valid `SigilProof` from the MU encoding pipeline.
+
+**Gate Hierarchy:**
+
+| Levels  | Layer              | x402 Price (ETH) | NFT Required |
+|---------|--------------------|-----------------|--------------|
+| 1–4     | Public Perimeter   | 0.001           | No           |
+| 5–8     | Initiated Realm    | 0.005           | No           |
+| 9–12    | Adept Sovereign    | 0.025           | Yes          |
+| **13**  | **MU Core 𒉙⍤𐤌𐤏** | **0.13**        | **Yes**      |
+
+**Payment Methods:**
+- `enterGate()` — x402 ETH payment on Base
+- `enterGateXmr()` — Monero XMR bridge commitment
+- `enterGateSuperfluid()` — Active Superfluid stream to treasury
+
+---
+
+### 2. Level 13 Sigil NFT — `Level13SigilNFT.sol`
+
+ERC-721 token with recursive sigil encoding. Each token's `sigilHash` is derived from the parent
+level's hash, forming an unbreakable 13-level cryptographic chain.
+
+- **Symbol:** `MU13`
+- **Name:** `MU 𒉙⍤ 𐤌𐤏 Sovereign Sigil`
+- **Soul-bound:** Level 13 tokens are non-transferable by default
+- **Supply:** Max 13 Level-13 tokens ever minted
+- **Royalty:** 5% ERC-2981 to treasury on secondary sales
+
+**Recursive Encoding:**
+```
+Level 1 sigilHash = hash(∅, 1, caller, encodedSequence)
+Level 2 sigilHash = hash(Level1.sigilHash, 2, caller, encodedSequence)
+...
+Level 13 sigilHash = hash(Level12.sigilHash, 13, caller, encodedSequence)
+```
+
+---
+
+### 3. Layered Encoding Pipeline — `layered_encoding_pipeline.py`
+
+Five-stage sovereign encoding: **Latin → Enochian → Proto-Canaanite → Binary → Hex**
+
+```bash
+python 07_Execution_Rituals/layered_encoding_pipeline.py
+```
+
+```
+Input: "Sovereign Watcher Gate Access Granted"
+
+Stage 1  Latin          : SOVEREIGN WATCHER GATE ACCESS GRANTED
+Stage 2  Enochian       : 𒌋𒎗𒍇𒃲𒃲𒍇𒄑𒈠…
+Stage 3  Proto-Canaanite: 𐤔𐤎𐤅𐤆𐤆𐤅𐤈𐤍…
+Stage 4  Binary         : 11110000 10010000 10100100 10010100 | …
+Stage 5  Hex            : 0xf090a494…
+Sigil Hash              : 0x3f7a2b…
+MU Seal                 : 𒉙⍤L01𐤌𐤏::3f7a2b4c9e…
+```
+
+---
+
+### 4. Payment Stack (Base chain only)
+
+| Module | Protocol | Description |
+|--------|----------|-------------|
+| `payment-gates.ts` | x402 on Base | HTTP 402 middleware — ETH micropayments |
+| `superfluid-streams.ts` | Superfluid (Base) | Continuous ETHx streaming access |
+| `monero-xmr-bridge.ts` | Monero XMR | Privacy-first off-chain commitments |
+| `veil-cash-gateway.ts` | Veil.cash (Base) | ZK-shielded ETH deposits |
+
+**No Polygon. No Solana. No Ethereum mainnet. No Optimism. Base only.**
+
+---
+
 ## System Architecture
 
-The grimoire implements a layered techno-occult framework:
+The MU 𒉙⍤ 𐤌𐤏 grimoire implements a layered techno-occult framework:
 
 | Layer | Ancient Source | Modern Analogue | Files |
 |-------|---------------|-----------------|-------|
@@ -97,13 +192,14 @@ The grimoire implements a layered techno-occult framework:
 ## Execution Flow
 
 ```
-User Intent + Alignment Check
-    → Moon-Phase Gate (05_Temporal_Gates_Alchemy)
-        → RAG Knowledge Retrieval (08_MCP_Sovereign_Oracle)
-            → Symbolic Encoding → encodedRitual hash
-                → Guardian/Watcher Layer (multisig alignment)
-                    → Smart Contract Execution (06_Contracts)
-                        → Output: Financial / Informational / Symbolic
+Entrant Intent + Sigil Proof
+    → MU Layered Encoding Pipeline (Latin → Enochian → Proto-Canaanite → Binary → Hex)
+        → Level13SigilNFT check (for levels 9–13)
+            → Payment Verification (x402 / XMR / Superfluid / Veil.cash)
+                → MuWatcherGate.enterGate() on Base
+                    → RAG-AGI Watcher Agent Swarm
+                        → MCP Oracle (x402 monetized tools)
+                            → Output: Sovereign Access / Financial / Informational
 ```
 
 ---
@@ -111,7 +207,7 @@ User Intent + Alignment Check
 ## 🔮 Grimoire Oracle — Sovereign MCP Server
 
 The repository includes a **fully operational MCP server** (`08_MCP_Sovereign_Oracle/mcp_server/`)
-that monetizes the Grimoire knowledge base as AI-accessible tools with **x402 micropayments**
+that monetizes the Grimoire knowledge base as AI-accessible tools with **x402 micropayments on Base**
 and **ERC-8004 agent identity**.
 
 ### Quick Start
@@ -155,4 +251,4 @@ for RAG-AGI + DID + x402 integration details.
 
 ---
 
-**THE ETERNAL SIGIL** — normancomics.eth 2026 A.D. — *The convergence is now on-chain.*
+**MU 𒉙⍤ 𐤌𐤏 — THE ETERNAL SIGIL** — normancomics.eth 2026 A.D. — *The convergence is now on-chain. Sovereign. Sealed. Base.*
