@@ -101,7 +101,7 @@ contract WatcherGate {
 
     uint8  public constant LAYER_COUNT         = 13;
     uint8  public constant SOVEREIGN_LAYER     = 13;  // Dual-auth mandatory
-    uint256 public constant AGENT_DISCOUNT_BPS = 500; // 5 % discount for verified agents
+    uint256 public constant AGENT_DISCOUNT_BPS = 500; // 5% discount for verified agents
     uint256 public constant MAX_LAYER_PRICE    = 1 ether;
 
     // ─── State ────────────────────────────────────────────────────────────────
@@ -306,7 +306,7 @@ contract WatcherGate {
 
     /**
      * @notice Enter a PAYMENT_ONLY gate layer by sending ETH directly.
-     * @dev Verified agents receive a 5 % discount; excess ETH is refunded.
+     * @dev Verified agents receive a 5% discount; excess ETH is refunded.
      * @param layerNumber Target layer (must have AuthMode.PAYMENT_ONLY)
      */
     function enterGateWithPayment(uint8 layerNumber)
@@ -593,7 +593,7 @@ contract WatcherGate {
     }
 
     /**
-     * @dev Apply the 5 % agent discount to a price if the address is a verified agent.
+     * @dev Apply the 5% agent discount to a price if the address is a verified agent.
      */
     function _applyAgentDiscount(uint256 price, address entrant)
         internal view

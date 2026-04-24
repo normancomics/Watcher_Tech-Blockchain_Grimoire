@@ -297,7 +297,7 @@ class GatekeeperDeployer:
 
     def register_agents(self, agent_addresses: list[str]) -> None:
         """
-        Step 5 — Register ERC-8004 agent addresses for the 5 % discount.
+        Step 5 — Register ERC-8004 agent addresses for the 5% discount.
         """
         if not agent_addresses:
             return
@@ -411,7 +411,7 @@ if __name__ == "__main__":
         None,  # deploy KnowledgeNFT.sol first, then set here
     )
     AGENT_ADDRESSES: list[str] = [
-        # Add ERC-8004 agent addresses here to grant the 5 % discount
+        # Add ERC-8004 agent addresses here to grant the 5% discount
     ]
 
     # ── Key Preview (always safe to run) ──────────────────────────────────
