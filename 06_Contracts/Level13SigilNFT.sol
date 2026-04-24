@@ -186,14 +186,16 @@ contract Level13SigilNFT is IERC2981 {
             parentHash = sigilTokens[parentTokenId].sigilHash;
         }
 
-        // Compute recursive sigil hash: keccak256(parent || level || caller || encoded)
+        // Compute recursive sigil hash: keccak256(parent || level || caller || encoded || tokenId)
+        // tokenId is included to guarantee uniqueness even within the same block.
         bytes32 sigilHash = keccak256(
             abi.encodePacked(
                 parentHash,
                 level,
                 msg.sender,
                 encodedSequence,
-                block.timestamp
+                block.timestamp,
+                tokenId   // prevents same-block collisions
             )
         );
 
@@ -254,7 +256,8 @@ contract Level13SigilNFT is IERC2981 {
                 level,
                 recipient,
                 encodedSequence,
-                block.timestamp
+                block.timestamp,
+                tokenId   // prevents same-block collisions
             )
         );
 

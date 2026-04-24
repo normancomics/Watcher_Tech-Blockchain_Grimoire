@@ -166,11 +166,9 @@ export class MuSuperfluidManager {
     const flowRate = getFlowRateForLevel(gateLevel);
 
     // CFAv1Forwarder.createFlow(token, sender, receiver, flowRate, userData)
-    // Function selector: 0x3d4bbe31
     // NOTE: The 'data' field below is illustrative. Production callers must use
     // ABI encoding (e.g., ethers.Interface.encodeFunctionData or viem encodeAbiParameters)
     // to produce valid Ethereum calldata from these parameters.
-    const functionSelector = "0x3d4bbe31";
     const abiEncodedArgs = [
       this.config.superTokenAddress,
       sender,
@@ -181,7 +179,11 @@ export class MuSuperfluidManager {
 
     return {
       to:   this.config.cfaForwarderAddress,
-      data: `${functionSelector}:${JSON.stringify(abiEncodedArgs)}`, // Illustrative
+      // NOTE: 'data' below is NOT valid Ethereum calldata.
+      // In production, use: ethers.Interface.encodeFunctionData("createFlow",
+      //   [superToken, sender, receiver, flowRate, "0x"])
+      // or viem's encodeFunctionData with the CFAv1Forwarder ABI.
+      data: `[ABI-encode: createFlow(${abiEncodedArgs.join(",")})]`,
       description: [
         `Open Superfluid stream for MU Gate Level ${gateLevel}`,
         `Flow rate: ${flowRate} wei/s`,

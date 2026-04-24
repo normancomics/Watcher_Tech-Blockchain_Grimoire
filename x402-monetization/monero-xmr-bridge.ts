@@ -165,12 +165,14 @@ export function getXmrPrice(level: number): number {
 export function generatePaymentId(): string {
   const bytes = new Uint8Array(8);
   if (typeof crypto !== "undefined" && crypto.getRandomValues) {
+    // Web Crypto API (browser or Node.js >= 15)
     crypto.getRandomValues(bytes);
   } else {
-    // Fallback for Node.js environments
-    for (let i = 0; i < 8; i++) {
-      bytes[i] = Math.floor(Math.random() * 256);
-    }
+    // Node.js < 15 environments: use built-in crypto module
+    // eslint-disable-next-line @typescript-eslint/no-require-imports
+    const nodeCrypto = require("crypto") as { randomBytes: (n: number) => Buffer };
+    const buf = nodeCrypto.randomBytes(8);
+    for (let i = 0; i < 8; i++) bytes[i] = buf[i];
   }
   return Array.from(bytes).map(b => b.toString(16).padStart(2, "0")).join("");
 }

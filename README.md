@@ -131,11 +131,12 @@ level's hash, forming an unbreakable 13-level cryptographic chain.
 
 **Recursive Encoding:**
 ```
-Level 1 sigilHash = hash(∅, 1, caller, encodedSequence, timestamp)
-Level 2 sigilHash = hash(Level1.sigilHash, 2, caller, encodedSequence, timestamp)
+Level 1 sigilHash = keccak256(∅, 1, caller, encodedSequence, block.timestamp, tokenId)
+Level 2 sigilHash = keccak256(Level1.sigilHash, 2, caller, encodedSequence, block.timestamp, tokenId)
 ...
-Level 13 sigilHash = hash(Level12.sigilHash, 13, caller, encodedSequence, timestamp)
+Level 13 sigilHash = keccak256(Level12.sigilHash, 13, caller, encodedSequence, block.timestamp, tokenId)
 ```
+`tokenId` ensures uniqueness even for same-block mints.
 
 ---
 
