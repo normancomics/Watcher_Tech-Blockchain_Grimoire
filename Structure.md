@@ -134,12 +134,24 @@ through to on-chain execution and AI monetization.
 | `GrimoireAccessPass.sol` | Access pass contract |
 | `EducationalVulnerabilityDemo.sol` | Educational reentrancy vulnerability demonstration |
 
+### technical-grimoire/smart-contracts — Advanced Contract Layer
+
+| File | Description |
+|------|-------------|
+| `WatcherGate.sol` | **Gatekeeper** — 13-layer sovereign pay-to-access gate (x402 + sigil NFT auth) |
+| `SpellPayment.sol` | x402 HTTP-402 micropayment protocol implementation |
+| `AgentAttunement.sol` | ERC-8004 agent identity, bonding, and reputation |
+| `SovereignSwarm.sol` | Multi-agent task coordination and bounty distribution |
+| `GrimoireRegistry.sol` | Central knowledge entry registry with peer review |
+| `KnowledgeNFT.sol` | ERC-721 NFT for esoteric text ownership and sigil access |
+
 ### 07_Execution_Rituals — Python Scripts
 
 | File | Description |
 |------|-------------|
 | `python_portal_solidity_ritual.py` | Ritual validation, planetary alignment, blockchain trigger |
 | `sovereign_watcher_agent_swarms.py` | Educational RAG-AGI Watcher agent swarm skeleton |
+| `gatekeeper_deploy.py` | **Gatekeeper** — WatcherGate.sol deployment ritual for Base mainnet |
 
 ### 08_MCP_Sovereign_Oracle — AI Oracle Layer
 
