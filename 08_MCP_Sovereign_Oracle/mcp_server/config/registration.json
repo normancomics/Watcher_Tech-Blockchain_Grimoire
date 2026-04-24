@@ -1,0 +1,49 @@
+{
+  "type": "https://eips.ethereum.org/EIPS/eip-8004#registration-v1",
+  "name": "Grimoire Oracle",
+  "description": "Sovereign AI agent providing blockchain security intelligence through the Watcher Tech Blockchain Grimoire framework. Scans smart contracts for 7 exploit archetypes, provides defense recommendations from the Atlantean Vault paradigms, and delivers threat intelligence through the 13 Family archetype lens.",
+  "version": "0.1.0",
+  "services": [
+    {
+      "name": "MCP",
+      "endpoint": "https://grimoire-oracle.example.com/mcp",
+      "version": "2025-06-18",
+      "description": "Model Context Protocol server — connect from Claude Desktop, Cursor, or any MCP client"
+    },
+    {
+      "name": "HTTP-API",
+      "endpoint": "https://grimoire-oracle.example.com/api",
+      "version": "0.1.0",
+      "description": "REST API with x402 micropayment support"
+    }
+  ],
+  "x402Support": true,
+  "metadata": {
+    "author": "normancomics.eth",
+    "license": "MIT",
+    "repository": "https://github.com/normancomics/Watcher_Tech_Blockchain_Grimoire",
+    "domains": [
+      "smart-contract-security",
+      "defi-exploit-analysis",
+      "blockchain-audit",
+      "threat-intelligence",
+      "defense-recommendations"
+    ],
+    "capabilities": [
+      "grimoire_audit_scan",
+      "grimoire_query_codex",
+      "grimoire_defense_recommend",
+      "grimoire_watcher_consult",
+      "grimoire_family_threat_intel"
+    ]
+  },
+  "_instructions": {
+    "setup": [
+      "1. Replace the service endpoints with your actual deployed URLs",
+      "2. Register this file on the ERC-8004 Identity Registry using the @agentic-trust/8004-sdk",
+      "3. Your agent will receive an agentId (ERC-721 NFT) representing its on-chain identity",
+      "4. As users interact with your agent, they can leave reputation feedback on the Reputation Registry"
+    ],
+    "registration_command": "npx @agentic-trust/8004-sdk register --config config/registration.json --network base"
+  }
+}
