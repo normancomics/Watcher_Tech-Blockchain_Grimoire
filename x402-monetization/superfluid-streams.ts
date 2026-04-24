@@ -167,6 +167,9 @@ export class MuSuperfluidManager {
 
     // CFAv1Forwarder.createFlow(token, sender, receiver, flowRate, userData)
     // Function selector: 0x3d4bbe31
+    // NOTE: The 'data' field below is illustrative. Production callers must use
+    // ABI encoding (e.g., ethers.Interface.encodeFunctionData or viem encodeAbiParameters)
+    // to produce valid Ethereum calldata from these parameters.
     const functionSelector = "0x3d4bbe31";
     const abiEncodedArgs = [
       this.config.superTokenAddress,

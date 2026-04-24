@@ -216,7 +216,7 @@ contract Level13SigilNFT is IERC2981 {
         levelMinted[level]++;
         totalRevenue += msg.value;
 
-        // Forward mint fee to treasury
+        // Forward mint fee to treasury — after all state changes (CEI pattern)
         (bool sent,) = treasury.call{value: msg.value}("");
         require(sent, "MU13: treasury transfer failed");
 

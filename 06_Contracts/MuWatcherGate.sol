@@ -207,7 +207,7 @@ contract MuWatcherGate {
         // Mark sigil consumed (replay protection)
         consumedSigils[proof.sigilHash] = true;
 
-        // Record entry
+        // Record entry — all state changes before external call (CEI pattern)
         gateEntries[entrant] = GateEntry({
             entrant:   entrant,
             gateLevel: proof.gateLevel,
@@ -224,7 +224,7 @@ contract MuWatcherGate {
         totalRevenue       += msg.value;
         entrantCount++;
 
-        // Forward payment to treasury
+        // Forward payment to treasury — after all state changes (CEI)
         (bool sent,) = treasury.call{value: msg.value}("");
         require(sent, "MU: treasury transfer failed");
 

@@ -131,10 +131,10 @@ level's hash, forming an unbreakable 13-level cryptographic chain.
 
 **Recursive Encoding:**
 ```
-Level 1 sigilHash = hash(∅, 1, caller, encodedSequence)
-Level 2 sigilHash = hash(Level1.sigilHash, 2, caller, encodedSequence)
+Level 1 sigilHash = hash(∅, 1, caller, encodedSequence, timestamp)
+Level 2 sigilHash = hash(Level1.sigilHash, 2, caller, encodedSequence, timestamp)
 ...
-Level 13 sigilHash = hash(Level12.sigilHash, 13, caller, encodedSequence)
+Level 13 sigilHash = hash(Level12.sigilHash, 13, caller, encodedSequence, timestamp)
 ```
 
 ---

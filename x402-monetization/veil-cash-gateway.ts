@@ -80,15 +80,17 @@ export interface VeilGatewayConfig {
 
 /**
  * Veil.cash deployment on Base.
- * @note Replace with actual Veil.cash Base chain addresses when available.
+ * @note These are placeholder addresses. Replace with actual Veil.cash Base chain
+ *       contract addresses from https://veil.cash before any production use.
+ *       Using these placeholder addresses will cause transaction failures.
  */
 export const VEIL_BASE_CONFIG = {
-  /** Veil.cash ETH pool on Base (placeholder — check veil.cash for current) */
+  /** Veil.cash ETH pool on Base — PLACEHOLDER: replace with real addresses */
   ethPools: {
-    "0.01": "0x0000000000000000000000000000000000000001",  // 0.01 ETH pool
-    "0.1":  "0x0000000000000000000000000000000000000002",  // 0.1 ETH pool
-    "1":    "0x0000000000000000000000000000000000000003",  // 1 ETH pool
-    "10":   "0x0000000000000000000000000000000000000004",  // 10 ETH pool
+    "0.01": "[PLACEHOLDER: Veil.cash 0.01 ETH pool on Base]",
+    "0.1":  "[PLACEHOLDER: Veil.cash 0.1 ETH pool on Base]",
+    "1":    "[PLACEHOLDER: Veil.cash 1 ETH pool on Base]",
+    "10":   "[PLACEHOLDER: Veil.cash 10 ETH pool on Base]",
   },
   relayerUrl: "https://relayer.veil.cash",
 } as const;
@@ -197,6 +199,7 @@ export class MuVeilGateway {
     const value = denominationToWei(denomination);
 
     // Veil.cash deposit(commitment) — function selector: 0xb214faa5
+    // NOTE: poolAddress is a placeholder. Replace with actual Veil.cash address before use.
     const calldata = {
       to:    poolAddress,
       value,
@@ -227,8 +230,9 @@ export class MuVeilGateway {
     recipient: string,
     relayerAddress: string
   ): VeilWithdrawalRequest {
-    const relayerFee = BigInt(Math.round(parseFloat(note.denomination) * 0.002 * 1e18));
     const totalValue = denominationToWei(note.denomination);
+    // 0.2% relayer fee using bigint arithmetic (2/1000 of denomination)
+    const relayerFee = totalValue * 2n / 1000n;
     const refund = totalValue - relayerFee;
 
     return {
@@ -288,18 +292,23 @@ export class MuVeilGateway {
 
 // ─── Internal Helpers ─────────────────────────────────────────────────────────
 
-function generateRandomHex(bytes: number): string {
-  const arr = new Uint8Array(bytes);
-  if (typeof crypto !== "undefined" && crypto.getRandomValues) {
-    crypto.getRandomValues(arr);
-  } else {
-    for (let i = 0; i < bytes; i++) arr[i] = Math.floor(Math.random() * 256);
+function generateRandomHex(byteCount: number): string {
+  if (typeof crypto === "undefined" || !crypto.getRandomValues) {
+    throw new Error(
+      "MU: crypto.getRandomValues is required for secure randomness. " +
+      "Do not use this function in environments without the Web Crypto API."
+    );
   }
+  const arr = new Uint8Array(byteCount);
+  crypto.getRandomValues(arr);
   return "0x" + Array.from(arr).map(b => b.toString(16).padStart(2, "0")).join("");
 }
 
 function simpleHash(input: string): string {
-  // Educational hash — replace with Poseidon or keccak256 in production
+  // Educational placeholder — NOT cryptographically secure.
+  // In production: use ethers.solidityPackedKeccak256 (keccak256) or
+  // a proper Poseidon implementation for ZK-compatible commitments.
+  // This function produces commitments incompatible with real Veil.cash contracts.
   let h = 0n;
   for (const ch of input) {
     h = (h * 16777619n ^ BigInt(ch.charCodeAt(0))) & 0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFn;

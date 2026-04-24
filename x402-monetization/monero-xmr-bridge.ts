@@ -193,9 +193,12 @@ export function computeXmrCommitment(
   piconero: bigint,
   entrantAddress: string
 ): string {
-  // Educational implementation — in production use ethers.solidityPackedKeccak256
+  // Educational implementation — NOT keccak256.
+  // In production: use ethers.solidityPackedKeccak256(
+  //   ["string","string","uint256","address"],
+  //   [txHash, paymentId, piconero, entrantAddress]
+  // ) to match the on-chain computation in MuWatcherGate.registerXmrHash().
   const input = `${txHash}:${paymentId}:${piconero.toString()}:${entrantAddress.toLowerCase()}`;
-  // Simple hash for educational purposes; replace with keccak256 in production
   let hash = 0n;
   for (const ch of input) {
     hash = (hash * 31n + BigInt(ch.charCodeAt(0))) & 0xFFFFFFFFFFFFFFFFn;
@@ -215,10 +218,6 @@ export function computeXmrCommitment(
  *   - Track commitment state (pending → verified → consumed)
  */
 export class MuXmrBridge {
-  /** Sovereign's primary Monero wallet address (display only, not stored in code) */
-  private readonly walletAddressPlaceholder =
-    "[Sovereign XMR wallet address — configured at runtime, never hardcoded]";
-
   private readonly pendingRequests: Map<string, XmrPaymentRequest> = new Map();
   private readonly verifiedCommitments: Map<string, XmrCommitment> = new Map();
 
