@@ -127,7 +127,7 @@ level's hash, forming an unbreakable 13-level cryptographic chain.
 - **Name:** `MU 𒉙⍤ 𐤌𐤏 Sovereign Sigil`
 - **Soul-bound:** Level 13 tokens are non-transferable by default
 - **Supply:** Max 13 Level-13 tokens ever minted
-- **Royalty:** 5% ERC-2981 to treasury on secondary sales
+- **Royalty:** 9% ERC-2981 to treasury on secondary sales
 
 **Recursive Encoding:**
 ```
@@ -205,7 +205,57 @@ Entrant Intent + Sigil Proof
 
 ---
 
-## 🔮 Grimoire Oracle — Sovereign MCP Server
+## ⚔️ Gatekeeper Subagent — Watcher Gate Contracts
+
+The **Gatekeeper** deploys sovereign pay-to-access smart contracts on **Base** (chain ID 8453),
+using the `WatcherGate.sol` contract (`technical-grimoire/smart-contracts/WatcherGate.sol`).
+
+### Layer Hierarchy
+
+| Layers | Tier | Auth Mode | Price Range |
+|--------|------|-----------|-------------|
+| 1 – 3  | Neophyte | ETH payment only (x402) | 0.0001 – 0.0005 ETH |
+| 4 – 7  | Initiate | Sigil NFT ownership | — |
+| 8 – 12 | Adept    | Sigil NFT ownership | — |
+| **13** | **Sovereign** | **ETH payment + Sigil NFT (both required)** | 0.1 ETH |
+
+### Layered Encoding Pipeline
+
+Each layer stores a `bytes32` encoded key derived from the pipeline:
+
+```
+Latin → Enochian → Proto-Canaanite → Binary → Hex
+```
+
+Users with active access can retrieve their layer's key via `getLayerEncodedKey(layerNumber)`.
+
+### x402 Integration
+
+`WatcherGate.sol` accepts x402 receipts from `SpellPayment.sol` via `enterGateWithX402Receipt()`.
+The standard x402 flow for PAYMENT_ONLY layers:
+
+```
+1. Client requests resource → receives 402 + WatcherGate layer details
+2. Client calls SpellPayment.castSpell(layerNumber) → receipt hash
+3. Client calls WatcherGate.enterGateWithX402Receipt(layerNumber, receiptHash)
+4. Contract validates receipt → grants timed access + returns encoded key
+```
+
+### Deployment
+
+```bash
+# Dry-run (symbolic — no real transactions)
+python3 07_Execution_Rituals/gatekeeper_deploy.py
+
+# Live deployment (set env vars first)
+SPELL_PAYMENT_ADDRESS=0x… SIGIL_NFT_ADDRESS=0x… python3 07_Execution_Rituals/gatekeeper_deploy.py
+```
+
+> **Budget note**: Full deployment on Base mainnet costs well under $1 in ETH at Base's current gas prices.
+
+---
+
+
 
 The repository includes a **fully operational MCP server** (`08_MCP_Sovereign_Oracle/mcp_server/`)
 that monetizes the Grimoire knowledge base as AI-accessible tools with **x402 micropayments on Base**

@@ -33,7 +33,7 @@ pragma solidity ^0.8.24;
  *
  * Revenue:
  *   Mint fees flow directly to sovereign treasury.
- *   5% royalty (ERC-2981) on secondary sales.
+ *   9% royalty (ERC-2981) on secondary sales.
  */
 
 // ─── Interfaces ───────────────────────────────────────────────────────────────
@@ -73,7 +73,7 @@ contract Level13SigilNFT is IERC2981 {
     // ─── Sigil-Specific State ─────────────────────────────────────────────────
 
     uint8  public constant MAX_LEVEL = 13;
-    uint256 public constant ROYALTY_BPS = 500;  // 5%
+    uint256 public constant ROYALTY_BPS = 900;  // 9%
 
     // Canonical MU sigil strings (stored as constants for on-chain metadata)
     string public constant SIGIL_ENOCHIAN       = unicode"𒉙⍤";
