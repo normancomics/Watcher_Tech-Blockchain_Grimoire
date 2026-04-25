@@ -79,6 +79,87 @@ Watcher_Tech-Blockchain_Grimoire/
 
 ---
 
+## MU 𒉙⍤ 𐤌𐤏 Core Systems
+
+### 1. Level 13 Watcher Gate — `MuWatcherGate.sol`
+
+Deployed on **Base** (chainId 8453). Enforces hierarchical sovereign access through cryptographic
+sigil authentication. Every entry function requires a valid `SigilProof` from the MU encoding pipeline.
+
+**Gate Hierarchy:**
+
+| Levels  | Layer              | x402 Price (ETH) | NFT Required |
+|---------|--------------------|-----------------|--------------|
+| 1–4     | Public Perimeter   | 0.001           | No           |
+| 5–8     | Initiated Realm    | 0.005           | No           |
+| 9–12    | Adept Sovereign    | 0.025           | Yes          |
+| **13**  | **MU Core 𒉙⍤𐤌𐤏** | **0.13**        | **Yes**      |
+
+**Payment Methods:**
+- `enterGate()` — x402 ETH payment on Base
+- `enterGateXmr()` — Monero XMR bridge commitment
+- `enterGateSuperfluid()` — Active Superfluid stream to treasury
+
+---
+
+### 2. Level 13 Sigil NFT — `Level13SigilNFT.sol`
+
+ERC-721 token with recursive sigil encoding. Each token's `sigilHash` is derived from the parent
+level's hash, forming an unbreakable 13-level cryptographic chain.
+
+- **Symbol:** `MU13`
+- **Name:** `MU 𒉙⍤ 𐤌𐤏 Sovereign Sigil`
+- **Soul-bound:** Level 13 tokens are non-transferable by default
+- **Supply:** Max 13 Level-13 tokens ever minted
+- **Royalty:** 9% ERC-2981 to treasury on secondary sales
+
+**Recursive Encoding:**
+```
+Level 1 sigilHash = keccak256(∅, 1, caller, encodedSequence, block.timestamp, tokenId)
+Level 2 sigilHash = keccak256(Level1.sigilHash, 2, caller, encodedSequence, block.timestamp, tokenId)
+...
+Level 13 sigilHash = keccak256(Level12.sigilHash, 13, caller, encodedSequence, block.timestamp, tokenId)
+```
+`tokenId` ensures uniqueness even for same-block mints.
+
+---
+
+### 3. Layered Encoding Pipeline — `layered_encoding_pipeline.py`
+
+Five-stage sovereign encoding: **Latin → Enochian → Proto-Canaanite → Binary → Hex**
+
+```bash
+python 07_Execution_Rituals/layered_encoding_pipeline.py
+```
+
+```
+Input: "Sovereign Watcher Gate Access Granted"
+
+Stage 1  Latin          : SOVEREIGN WATCHER GATE ACCESS GRANTED
+Stage 2  Enochian       : 𒌋𒎗𒍇𒃲𒃲𒍇𒄑𒈠…
+Stage 3  Proto-Canaanite: 𐤔𐤎𐤅𐤆𐤆𐤅𐤈𐤍…
+Stage 4  Binary         : 11110000 10010000 10100100 10010100 | …
+Stage 5  Hex            : 0xf090a494…
+Sigil Hash              : 0x3f7a2b…
+MU Seal                 : 𒉙⍤L01𐤌𐤏::3f7a2b4c9e…
+```
+
+---
+
+### 4. Payment Stack (Base chain only)
+
+| Module | Protocol | Description |
+|--------|----------|-------------|
+| `payment-gates.ts` | x402 on Base | HTTP 402 middleware — ETH micropayments |
+| `superfluid-streams.ts` | Superfluid (Base) | Continuous ETHx streaming access |
+| `monero-xmr-bridge.ts` | Monero XMR | Privacy-first off-chain commitments |
+| `veil-cash-gateway.ts` | Veil.cash (Base) | ZK-shielded ETH deposits |
+
+**No Polygon. No Solana. No Ethereum mainnet. No Optimism. Base only.**
+
+---
+
+
 ## System Architecture
 
 The grimoire implements a layered techno-occult framework:
