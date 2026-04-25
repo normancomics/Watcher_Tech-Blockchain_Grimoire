@@ -1,0 +1,36 @@
+{
+  "type": "https://eips.ethereum.org/EIPS/eip-8004#registration-v1",
+  "name": "WatcherTech-GrimoireOracle",
+  "description": "Sovereign AI oracle reverse-engineering antediluvian Watcher transmissions into blockchain, DeFi, and AI frameworks. Monetized via x402 micropayments on Base Chain. Authored by normancomics.eth.",
+  "image": "ipfs://PLACEHOLDER_SIGIL_IMAGE_CID",
+  "version": "1.0.0",
+  "author": "normancomics.eth",
+  "chain": "eip155:8453",
+  "services": [
+    { "name": "web",  "endpoint": "https://v0-blockchain-grimoire.vercel.app" },
+    { "name": "mcp",  "endpoint": "PLACEHOLDER_MCP_ENDPOINT/mcp" },
+    { "name": "x402", "endpoint": "PLACEHOLDER_MCP_ENDPOINT/api" }
+  ],
+  "capabilities": [
+    "grimoire_audit_scan",
+    "grimoire_query_codex",
+    "grimoire_defense_recommend",
+    "grimoire_watcher_consult",
+    "grimoire_family_threat_intel"
+  ],
+  "pricing": {
+    "currency": "USDC",
+    "chain": "base",
+    "rates": {
+      "grimoire_audit_scan":          "0.50",
+      "grimoire_query_codex":         "0.10",
+      "grimoire_defense_recommend":   "0.25",
+      "grimoire_watcher_consult":     "0.75",
+      "grimoire_family_threat_intel": "0.30"
+    }
+  },
+  "identity": {
+    "ens": "normancomics.eth",
+    "wallet": "DEPLOYER_ADDRESS_PLACEHOLDER"
+  }
+}
