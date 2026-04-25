@@ -1,13 +1,19 @@
-// SPDX-License-Identifier: UNLICENSED
-pragma solidity ^0.8.20;
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.24;
+
+/**
+ * @title ArcanusMathematica
+ * @author normancomics.eth — 2026 A.D.
+ * @notice ERC-721 Grimoire NFT with tiered free minting and WatcherGate integration.
+ */
 
 import {ERC721} from "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
 
-/// @custom:dev-run-script ./scripts/deploy.js
 contract ArcanusMathematica is ERC721, Ownable {
-    uint256 public tokenIdCounter;
+    uint256 private _tokenIdCounter;   // starts at 0; first token minted gets ID 1
     uint256 public mintPrice = 0.033 ether;
+    uint256 public maxSupply = 1333;
 
     string public constant GRIMOIRE_TITLE = "ARCANUS MATHEMATICA";
     string public constant GRIMOIRE_METADATA = "Occult and apocryphal revelations concerning non-human entities teaching mankind the arts of mathematics, geometry, mensuration, astronomy, and sacred calculations. Compiled from the Book of Enoch, Zohar, Testament of Solomon, and Solomonic Grimoires. Preserved as a permanent immutable blockchain grimoire.";
@@ -16,6 +22,8 @@ contract ArcanusMathematica is ERC721, Ownable {
     error InsufficientETH();
     /// Thrown when an always-free minter accidentally sends ETH with their mint tx.
     error EthNotAllowed();
+    /// Thrown when the max supply cap has been reached.
+    error MaxSupplyReached();
 
     // -------------------------------------------------------------------------
     // Always-free minters: unlimited free mints; msg.value MUST be 0.
@@ -31,7 +39,17 @@ contract ArcanusMathematica is ERC721, Ownable {
     // Tracks whether a one-time-free address has already used their free mint.
     mapping(address => bool) private _hasUsedFreeMint;
 
+    // Per-token URI overrides (optional).
+    mapping(uint256 => string) private _tokenURIOverrides;
+
+    // Base URI for all tokens (fallback when no per-token override is set).
+    string private _baseTokenURI;
+
+    // WatcherGate contract for grimoire access checks.
+    address public watcherGate;
+
     constructor() ERC721("ArcanusMathematica", "ARCMATH") Ownable(msg.sender) {
+        _baseTokenURI = "ipfs://QmArcanusMathematicaFullGrimoireHash";
         // Always-free minters (unlimited, msg.value == 0 enforced)
         _alwaysFreeMinters[0x3d95D4A6DbaE0Cd0643a82b13A13b08921D6ADf7] = true; // normancomics.eth
         _alwaysFreeMinters[0x80cFfdCA4d7E05Eb25e703A183E98C7a4094EeC0] = true; // fundsaresafu.eth
@@ -65,16 +83,29 @@ contract ArcanusMathematica is ERC721, Ownable {
         return _hasUsedFreeMint[addr];
     }
 
+    /// Returns true if `addr` holds at least one ArcanusMathematica grimoire.
+    function holdsGrimoire(address addr) public view returns (bool) {
+        return balanceOf(addr) > 0;
+    }
+
+    /// Returns the total number of tokens minted so far.
+    function totalMinted() public view returns (uint256) {
+        return _tokenIdCounter;
+    }
+
     // -------------------------------------------------------------------------
     // Minting
     // -------------------------------------------------------------------------
 
     function mintGrimoire(address to) public onlyOwner {
-        uint256 tokenId = tokenIdCounter++;
+        if (_tokenIdCounter >= maxSupply) revert MaxSupplyReached();
+        uint256 tokenId = ++_tokenIdCounter;    // pre-increment: IDs start at 1
         _safeMint(to, tokenId);
     }
 
     function publicMint() public payable {
+        if (_tokenIdCounter >= maxSupply) revert MaxSupplyReached();
+
         if (_alwaysFreeMinters[msg.sender]) {
             // Always-free: block accidental ETH to prevent funds being locked.
             if (msg.value != 0) revert EthNotAllowed();
@@ -86,7 +117,7 @@ contract ArcanusMathematica is ERC721, Ownable {
             if (msg.value < mintPrice) revert InsufficientETH();
         }
 
-        uint256 tokenId = tokenIdCounter++;
+        uint256 tokenId = ++_tokenIdCounter;    // pre-increment: IDs start at 1
         _safeMint(msg.sender, tokenId);
     }
 
@@ -98,16 +129,45 @@ contract ArcanusMathematica is ERC721, Ownable {
         mintPrice = _newPrice;
     }
 
+    /// @notice Update the max supply cap (cannot exceed already-minted total).
+    function setMaxSupply(uint256 _newMaxSupply) public onlyOwner {
+        require(_newMaxSupply >= _tokenIdCounter, "ArcanusMathematica: below current supply");
+        maxSupply = _newMaxSupply;
+    }
+
+    /// @notice Set the WatcherGate contract address for grimoire access checks.
+    function setWatcherGate(address _watcherGate) public onlyOwner {
+        watcherGate = _watcherGate;
+    }
+
     function withdraw() public onlyOwner {
         uint256 amount = address(this).balance;
-        payable(owner()).transfer(amount);
+        require(amount > 0, "ArcanusMathematica: nothing to withdraw");
+        (bool sent,) = owner().call{value: amount}("");
+        require(sent, "ArcanusMathematica: withdrawal failed");
     }
 
     // -------------------------------------------------------------------------
     // Metadata
     // -------------------------------------------------------------------------
 
-    function tokenURI(uint256) public pure override returns (string memory) {
-        return "ipfs://QmArcanusMathematicaFullGrimoireHash";
+    /// @notice Set the base URI returned for all tokens without a per-token override.
+    function setBaseURI(string calldata newBaseURI) public onlyOwner {
+        _baseTokenURI = newBaseURI;
+    }
+
+    /// @notice Set a per-token metadata URI override (owner only).
+    function setTokenURI(uint256 tokenId, string calldata uri) public onlyOwner {
+        _requireOwned(tokenId);
+        _tokenURIOverrides[tokenId] = uri;
+    }
+
+    function tokenURI(uint256 tokenId) public view override returns (string memory) {
+        _requireOwned(tokenId);
+        string memory override_ = _tokenURIOverrides[tokenId];
+        if (bytes(override_).length > 0) {
+            return override_;
+        }
+        return _baseTokenURI;
     }
 }

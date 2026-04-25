@@ -1,0 +1,35 @@
+[profile.default]
+src        = "06_Contracts"
+out        = "out"
+libs       = ["lib"]
+test       = "test"
+script     = "script"
+solc       = "0.8.24"
+
+# ─── Remappings ───────────────────────────────────────────────────────────────
+remappings = [
+    "@openzeppelin/contracts/=lib/openzeppelin-contracts/contracts/",
+]
+
+# ─── Optimizer ────────────────────────────────────────────────────────────────
+optimizer        = true
+optimizer_runs   = 200
+via_ir           = false
+
+# ─── Solidity via-IR & metadata ───────────────────────────────────────────────
+bytecode_hash    = "none"       # reproducible builds
+cbor_metadata    = false
+
+# ─── RPC endpoints ────────────────────────────────────────────────────────────
+[rpc_endpoints]
+base          = "${BASE_MAINNET_RPC}"
+base_sepolia  = "${BASE_SEPOLIA_RPC}"
+
+# ─── Etherscan / Basescan ─────────────────────────────────────────────────────
+[etherscan]
+base = { key = "${BASESCAN_API_KEY}", url = "https://api.basescan.org/api", chain = 8453 }
+base_sepolia = { key = "${BASESCAN_API_KEY}", url = "https://api-sepolia.basescan.org/api", chain = 84532 }
+
+# ─── Fuzz settings (for test suite) ───────────────────────────────────────────
+[fuzz]
+runs = 256

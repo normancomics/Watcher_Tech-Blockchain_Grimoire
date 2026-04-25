@@ -31,6 +31,7 @@
  */
 
 import express from "express";
+import { paymentMiddleware } from "x402-express";
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -57,6 +58,35 @@ app.use(express.json({ limit: "1mb" }));
 
 const pricing = loadPricingConfig();
 const registration = loadAgentRegistration();
+
+// ─── x402-express paymentMiddleware ────────────────────────────────────
+// Production-grade x402 payment enforcement via the Coinbase facilitator.
+// RECEIVER_WALLET must be set in the environment (normancomics.eth address).
+// Falls back gracefully if the env var is not yet populated (dev/test mode).
+
+const RECEIVER_WALLET = process.env["RECEIVER_WALLET"] ?? "";
+
+if (RECEIVER_WALLET) {
+  app.use(
+    paymentMiddleware(
+      RECEIVER_WALLET as `0x${string}`,
+      {
+        "POST /api/tools/grimoire_audit_scan":          { price: "$0.50", network: "base" },
+        "POST /api/tools/grimoire_query_codex":         { price: "$0.10", network: "base" },
+        "POST /api/tools/grimoire_defense_recommend":   { price: "$0.25", network: "base" },
+        "POST /api/tools/grimoire_watcher_consult":     { price: "$0.75", network: "base" },
+        "POST /api/tools/grimoire_family_threat_intel": { price: "$0.30", network: "base" },
+      },
+      { url: "https://x402.org/facilitator" },
+    ),
+  );
+  console.log(`💳 x402-express paymentMiddleware registered (receiver: ${RECEIVER_WALLET})`);
+} else {
+  console.warn(
+    "⚠️  RECEIVER_WALLET not set — x402-express paymentMiddleware is disabled. " +
+    "Set RECEIVER_WALLET=<normancomics.eth address> to enable on-chain payment enforcement.",
+  );
+}
 
 /**
  * Returns a frozen, immutable snapshot of the knowledge base.
