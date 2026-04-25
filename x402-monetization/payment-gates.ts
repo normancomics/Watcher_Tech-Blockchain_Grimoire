@@ -1,6 +1,16 @@
 /**
  * @title PaymentGates — HTTP 402 Middleware
- * @notice Express/Fastify middleware for x402 payment-gated API endpoints
+ * @notice Express/Fastify middleware for x402 payment-gated API endpoints.
+ *
+ * MU 𒉙⍤ 𐤌𐤏 — All payments route exclusively through Base chain.
+ * Supported payment paths:
+ *   1. x402 on Base  — ETH/USDC on-chain micropayments (primary)
+ *   2. Superfluid    — Continuous ETHx streaming on Base (see superfluid-streams.ts)
+ *   3. Monero XMR    — Privacy-first off-chain bridge (see monero-xmr-bridge.ts)
+ *   4. Veil.cash     — ZK-shielded ETH on Base (see veil-cash-gateway.ts)
+ *
+ * Note: Polygon, Solana, mainnet, and Optimism are NOT supported.
+ *       MU sovereignty runs exclusively on Base (chainId 8453 / 84532).
  */
 
 export interface X402PaymentRequired {
@@ -10,8 +20,8 @@ export interface X402PaymentRequired {
   resourceDescription: string;
   payment: {
     amount: string;
-    currency: 'ETH' | 'USDC' | 'DAI';
-    network: 'mainnet' | 'base' | 'optimism';
+    currency: 'ETH' | 'USDC';
+    network: 'base';
     contractAddress: string;
     functionSignature: 'castSpell(uint256)';
     accepts: string[];
@@ -39,7 +49,7 @@ export function createPaymentGate(config: {
   priceEth: string;
   accessDurationSeconds: number;
   contractAddress: string;
-  network: X402PaymentRequired['payment']['network'];
+  network: 'base';
 }) {
   return async (req: Request, _res: Response, next: () => void): Promise<Response | void> => {
     const paymentProof = extractPaymentProof(req);
@@ -83,7 +93,7 @@ function createPaymentRequiredResponse(config: {
   priceEth: string;
   accessDurationSeconds: number;
   contractAddress: string;
-  network: X402PaymentRequired['payment']['network'];
+  network: 'base';
 }): Response {
   const body: X402PaymentRequired = {
     error: 'Payment Required',
@@ -93,7 +103,7 @@ function createPaymentRequiredResponse(config: {
     payment: {
       amount: config.priceEth,
       currency: 'ETH',
-      network: config.network,
+      network: 'base',
       contractAddress: config.contractAddress,
       functionSignature: 'castSpell(uint256)',
       accepts: ['application/json'],
