@@ -335,17 +335,129 @@ The Grimoire exposes MCP (Model Context Protocol) tools for AI agent integration
 
 ---
 
-## Error Codes
+## Smart Contracts
 
-| Code | Name | Description |
-|------|------|-------------|
-| 400 | Bad Request | Invalid parameters |
-| 401 | Unauthorized | Missing or invalid authentication |
-| 402 | Payment Required | x402 payment required for this resource |
-| 403 | Forbidden | Insufficient access tier |
-| 404 | Not Found | Resource not found |
-| 429 | Too Many Requests | Rate limit exceeded |
-| 500 | Server Error | Internal error |
+The following contracts constitute the full Watcher Tech Blockchain Grimoire on-chain system.
+
+### Core Gate Layer
+
+| Contract | Description |
+|----------|-------------|
+| `WatcherGate.sol` | 13-layer hierarchical access control gateway |
+| `SpellPayment.sol` | x402 micropayment processor (ETH receipt issuer) |
+| `SigilNFT.sol` | ERC-721 sigil NFT for layer access authentication |
+| `ArcanusMathematica.sol` | On-chain sacred geometry and gematria calculations |
+
+### Agent Identity & Coordination
+
+| Contract | Description |
+|----------|-------------|
+| `GrimoireERC8004Registry.sol` | ERC-721 identity NFT registry per ERC-8004 spec |
+| `GrimoireReputationRegistry.sol` | Cross-contract reputation ledger |
+| `AgentAttunement.sol` | Agent bonding, capability tracking, task performance |
+| `SovereignSwarm.sol` | Multi-agent task coordination with bid/assign/validate flow |
+
+### Knowledge & Storage
+
+| Contract | Description |
+|----------|-------------|
+| `GrimoireRegistry.sol` | On-chain knowledge entry registry with peer review |
+| `KnowledgeNFT.sol` | ERC-721 knowledge tokens with royalty (ERC-2981) |
+| `IPFSContentRegistry.sol` | IPFS/Arweave content anchor with proof of authority |
+
+### IPFSContentRegistry Contract Interface
+
+The `IPFSContentRegistry` contract provides on-chain proof of authority for decentralised content stored on IPFS or Arweave.
+
+#### registerContent
+
+```solidity
+function registerContent(
+    string calldata cid,
+    bytes32 contentHash,
+    ContentDomain domain,
+    StorageLayer storageLayer
+) external returns (uint256 contentId)
+```
+
+Registers an IPFS CID or Arweave TX ID on-chain. Creates an immutable proof-of-existence anchored to the current block number.
+
+#### submitAuthorityProof
+
+```solidity
+function submitAuthorityProof(
+    uint256 contentId,
+    bytes calldata signature
+) external
+```
+
+Submits an ECDSA proof-of-authorship. The signature must be over:
+```
+keccak256(abi.encodePacked(cid, author, block.chainid))
+```
+
+#### attestContent
+
+```solidity
+function attestContent(uint256 contentId) external
+```
+
+Community attestation. After `SEAL_ATTESTATION_THRESHOLD` (5) unique attestations, the record is auto-sealed (immutable).
+
+#### linkArweave
+
+```solidity
+function linkArweave(
+    uint256 contentId,
+    string calldata arweaveTxId
+) external
+```
+
+Links a permanent Arweave transaction ID to an existing IPFS content record.
+
+#### verifyCID
+
+```solidity
+function verifyCID(string calldata cid)
+    external view
+    returns (bool found, uint256 id, bool sealed)
+```
+
+Checks whether a CID is registered and whether its record is sealed.
+
+---
+
+## Deployment
+
+Deploy all contracts in dependency order using the Foundry script:
+
+```bash
+# Set environment variables
+export PRIVATE_KEY=0x...
+export BASE_MAINNET_RPC=https://mainnet.base.org
+
+# Deploy all contracts
+forge script script/Deploy.s.sol \
+  --rpc-url base \
+  --broadcast \
+  --verify \
+  -vvvv
+
+# Verify on Basescan
+export SIGIL_NFT_ADDRESS=0x...
+export ARCANUS_MATHEMATICA_ADDRESS=0x...
+export SPELL_PAYMENT_ADDRESS=0x...
+export WATCHER_GATE_ADDRESS=0x...
+export ERC8004_REGISTRY_ADDRESS=0x...
+export REPUTATION_REGISTRY_ADDRESS=0x...
+export GRIMOIRE_REGISTRY_ADDRESS=0x...
+export AGENT_ATTUNEMENT_ADDRESS=0x...
+export SOVEREIGN_SWARM_ADDRESS=0x...
+export KNOWLEDGE_NFT_ADDRESS=0x...
+export IPFS_CONTENT_REGISTRY_ADDRESS=0x...
+
+forge script script/Verify.s.sol --rpc-url base -vvvv
+```
 
 ---
 
