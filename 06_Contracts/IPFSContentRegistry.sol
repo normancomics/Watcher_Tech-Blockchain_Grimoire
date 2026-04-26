@@ -409,10 +409,10 @@ contract IPFSContentRegistry {
         uint256 sealed,
         uint256 withProofs
     ) {
+        total = contentCount;
         for (uint256 i = 1; i <= contentCount; i++) {
-            total++;
-            if (contents[i].sealed)              sealed++;
-            if (proofs[i].verified)              withProofs++;
+            if (contents[i].sealed)    sealed++;
+            if (proofs[i].verified)    withProofs++;
         }
     }
 
