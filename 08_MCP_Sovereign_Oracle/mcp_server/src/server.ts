@@ -25,6 +25,9 @@
  *   POST /api/tools/grimoire_defense_recommend   # Defense (x402 paid)
  *   POST /api/tools/grimoire_watcher_consult     # Watcher (x402 paid)
  *   POST /api/tools/grimoire_family_threat_intel  # Threat intel (x402 paid)
+ *   POST /api/tools/grimoire_quantum_entropy      # Quantum entropy (x402 paid)
+ *   POST /api/tools/grimoire_rag_synthesis        # RAG synthesis (x402 paid)
+ *   POST /api/tools/grimoire_sovereign_invoke     # Sovereign invoke (x402 paid)
  *   GET  /api/pricing                     # Pricing info
  *   GET  /api/audit-stats                 # Sandbox audit statistics
  *   GET  /.well-known/agent.json          # ERC-8004 registration
@@ -41,6 +44,9 @@ import { queryCodex } from "./tools/query-codex.js";
 import { getDefenseRecommendation } from "./tools/defense-recommend.js";
 import { consultWatcher } from "./tools/watcher-consult.js";
 import { getFamilyThreatIntel } from "./tools/family-threat-intel.js";
+import { generateQuantumEntropy } from "./tools/quantum-entropy.js";
+import { synthesizeKnowledge } from "./tools/rag-synthesis.js";
+import { sovereignInvoke } from "./tools/sovereign-invoke.js";
 import { loadPricingConfig, x402PaymentGuard } from "./payment/x402.js";
 import { loadAgentRegistration } from "./identity/erc8004.js";
 import { sandboxExecute, getFrozenKnowledge } from "./sandbox/sandbox.js";
@@ -76,6 +82,9 @@ if (RECEIVER_WALLET) {
         "POST /api/tools/grimoire_defense_recommend":   { price: "$0.25", network: "base" },
         "POST /api/tools/grimoire_watcher_consult":     { price: "$0.75", network: "base" },
         "POST /api/tools/grimoire_family_threat_intel": { price: "$0.30", network: "base" },
+        "POST /api/tools/grimoire_quantum_entropy":     { price: "$0.40", network: "base" },
+        "POST /api/tools/grimoire_rag_synthesis":       { price: "$0.20", network: "base" },
+        "POST /api/tools/grimoire_sovereign_invoke":    { price: "$1.00", network: "base" },
       },
       { url: "https://x402.org/facilitator" },
     ),
@@ -423,6 +432,190 @@ app.post("/api/tools/grimoire_family_threat_intel",
       tool: "grimoire_family_threat_intel",
       sandbox: { timedOut: result.timedOut, violations: result.violations },
       result: { response: result.output },
+    });
+  }
+});
+
+// ─── Endpoint 6: Quantum Entropy ─────────────────────────────────────
+
+app.post("/api/tools/grimoire_quantum_entropy",
+  x402PaymentGuard("grimoire_quantum_entropy", pricing),
+  async (req, res) => {
+  const { bytes, encoding, planet, angel, commitReveal, useCase } = req.body as {
+    bytes?: number;
+    encoding?: "hex" | "base64" | "binary-description";
+    planet?: "saturn" | "jupiter" | "mars" | "sun" | "venus" | "mercury" | "moon";
+    angel?: string;
+    commitReveal?: boolean;
+    useCase?: string;
+  };
+
+  const result = await sandboxExecute(
+    "grimoire_quantum_entropy",
+    { bytes, encoding, planet, angel, commitReveal, useCase },
+    (inputs) => {
+      const entropy = generateQuantumEntropy({
+        bytes:       inputs["bytes"] as number | undefined,
+        encoding:    inputs["encoding"] as "hex" | "base64" | "binary-description" | undefined,
+        planet:      inputs["planet"] as "saturn" | "jupiter" | "mars" | "sun" | "venus" | "mercury" | "moon" | undefined,
+        angel:       inputs["angel"] as string | undefined,
+        commitReveal: inputs["commitReveal"] as boolean | undefined,
+        useCase:     inputs["useCase"] as string | undefined,
+      });
+      return JSON.stringify({
+        entropy:       entropy.entropy,
+        entropyBits:   entropy.entropyBits,
+        algorithm:     entropy.algorithm,
+        pqcSuite:      entropy.pqcSuite,
+        angel:         entropy.angel,
+        planet:        entropy.planet,
+        commit:        entropy.commit,
+        revealKey:     entropy.revealKey,
+        provenanceHash: entropy.provenanceHash,
+        timestamp:     entropy.timestamp,
+        report:        entropy.fullReport,
+      });
+    },
+    { transport: "http" },
+  );
+
+  try {
+    const parsed = JSON.parse(result.output) as Record<string, unknown>;
+    res.json({
+      tool: "grimoire_quantum_entropy",
+      sandbox: { timedOut: result.timedOut, violations: result.violations },
+      result: parsed,
+    });
+  } catch {
+    res.json({
+      tool: "grimoire_quantum_entropy",
+      sandbox: { timedOut: result.timedOut, violations: result.violations },
+      result: { report: result.output },
+    });
+  }
+});
+
+// ─── Endpoint 7: RAG Synthesis ───────────────────────────────────────
+
+app.post("/api/tools/grimoire_rag_synthesis",
+  x402PaymentGuard("grimoire_rag_synthesis", pricing),
+  async (req, res) => {
+  const { query, subQueries, maxSources, filterTags, crossReference, depth } = req.body as {
+    query?: string;
+    subQueries?: string[];
+    maxSources?: number;
+    filterTags?: string[];
+    crossReference?: boolean;
+    depth?: "brief" | "standard" | "deep";
+  };
+
+  if (!query) {
+    res.status(400).json({ error: "query is required in the request body" });
+    return;
+  }
+
+  const knowledge = getKnowledge();
+
+  const result = await sandboxExecute(
+    "grimoire_rag_synthesis",
+    { query, subQueries, maxSources, filterTags, crossReference, depth },
+    (inputs) => {
+      const synthesis = synthesizeKnowledge([...knowledge], {
+        query:          inputs["query"] as string,
+        subQueries:     inputs["subQueries"] as string[] | undefined,
+        maxSources:     inputs["maxSources"] as number | undefined,
+        filterTags:     inputs["filterTags"] as string[] | undefined,
+        crossReference: inputs["crossReference"] as boolean | undefined,
+        depth:          inputs["depth"] as "brief" | "standard" | "deep" | undefined,
+      });
+      return JSON.stringify({
+        query:            synthesis.query,
+        citationCount:    synthesis.citations.length,
+        pillarsActivated: synthesis.pillarsActivated,
+        confidenceScore:  synthesis.confidenceScore,
+        crossReferences:  synthesis.crossReferences,
+        citations:        synthesis.citations,
+        response:         synthesis.fullResponse,
+      });
+    },
+    { knowledge, transport: "http" },
+  );
+
+  try {
+    const parsed = JSON.parse(result.output) as Record<string, unknown>;
+    res.json({
+      tool: "grimoire_rag_synthesis",
+      sandbox: { timedOut: result.timedOut, violations: result.violations },
+      result: parsed,
+    });
+  } catch {
+    res.json({
+      tool: "grimoire_rag_synthesis",
+      sandbox: { timedOut: result.timedOut, violations: result.violations },
+      result: { response: result.output },
+    });
+  }
+});
+
+// ─── Endpoint 8: Sovereign Invoke ────────────────────────────────────
+
+app.post("/api/tools/grimoire_sovereign_invoke",
+  x402PaymentGuard("grimoire_sovereign_invoke", pricing),
+  async (req, res) => {
+  const { objective, contractSource, contractName, objectiveType, maxSources } = req.body as {
+    objective?: string;
+    contractSource?: string;
+    contractName?: string;
+    objectiveType?: "CONTRACT_AUDIT" | "THREAT_ANALYSIS" | "DEFENSE_SYNTHESIS" | "KNOWLEDGE_SYNTHESIS" | "WATCHER_COUNCIL";
+    maxSources?: number;
+  };
+
+  if (!objective) {
+    res.status(400).json({ error: "objective is required in the request body" });
+    return;
+  }
+
+  const knowledge = getKnowledge();
+
+  const result = await sandboxExecute(
+    "grimoire_sovereign_invoke",
+    { objective, contractSource, contractName, objectiveType, maxSources },
+    (inputs) => {
+      const invocation = sovereignInvoke(
+        {
+          objective:      inputs["objective"] as string,
+          contractSource: inputs["contractSource"] as string | undefined,
+          contractName:   inputs["contractName"] as string | undefined,
+          objectiveType:  inputs["objectiveType"] as "CONTRACT_AUDIT" | "THREAT_ANALYSIS" | "DEFENSE_SYNTHESIS" | "KNOWLEDGE_SYNTHESIS" | "WATCHER_COUNCIL" | undefined,
+          maxSources:     inputs["maxSources"] as number | undefined,
+        },
+        [...knowledge],
+      );
+      return JSON.stringify({
+        objective:          invocation.objective,
+        objectiveType:      invocation.objectiveType,
+        riskLevel:          invocation.riskLevel,
+        activatedWatchers:  invocation.activatedWatchers,
+        stepsExecuted:      invocation.stepsExecuted.length,
+        sovereignJudgment:  invocation.sovereignJudgment,
+        fullReport:         invocation.fullReport,
+      });
+    },
+    { knowledge, transport: "http" },
+  );
+
+  try {
+    const parsed = JSON.parse(result.output) as Record<string, unknown>;
+    res.json({
+      tool: "grimoire_sovereign_invoke",
+      sandbox: { timedOut: result.timedOut, violations: result.violations },
+      result: parsed,
+    });
+  } catch {
+    res.json({
+      tool: "grimoire_sovereign_invoke",
+      sandbox: { timedOut: result.timedOut, violations: result.violations },
+      result: { report: result.output },
     });
   }
 });
