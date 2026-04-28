@@ -1,6 +1,21 @@
-```
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.20;
+pragma solidity ^0.8.24;
+
+/**
+ * @title OccultGrimoire
+ * @author normancomics.eth — 2026 A.D.
+ * @notice Occult archetype registry demonstrating exploit analogues as esoteric rites.
+ * @dev EDUCATIONAL REFERENCE: This contract intentionally maps smart-contract
+ *      vulnerability archetypes to their occult / esoteric counterparts.
+ *      All exploit-analogue functions are documented for awareness only.
+ *
+ * Archetype Map:
+ *   Sigil Activation      — Temporal gate manipulation (block.timestamp, blockhash)
+ *   Recursive Invocation  — Reentrancy analogue (ritual echo loop)
+ *   Instant Conjuration   — Flash-loan / ephemeral-power analogue (delegatecall)
+ *   Veiled Proof          — ZK / hidden-lineage analogue (assembly scratchpad)
+ *   Cross-Realm Portal    — Bridge / cross-chain analogue (arbitrary external call)
+ */
 
 contract OccultGrimoire {
     event Invocation(string rite, address caster, uint256 blockNumber);
@@ -56,4 +71,3 @@ contract OccultGrimoire {
         emit Invocation("PortalConjure", msg.sender, block.number);
     }
 }
-```
