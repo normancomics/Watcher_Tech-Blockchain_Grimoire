@@ -53,21 +53,3 @@
     ]
   }
 }
-
-  "_instructions": {
-    "setup": [
-      "1. Replace receiverAddress with your wallet address (the address that will receive payments)",
-      "2. Change network to your preferred chain: 'base', 'base-sepolia', 'ethereum', 'polygon', etc.",
-      "3. Adjust prices as needed (denominated in the currency specified)",
-      "4. For production, install @coinbase/x402 and configure the facilitator"
-    ],
-    "supported_networks": [
-      "base (recommended — lowest fees)",
-      "base-sepolia (testnet)",
-      "ethereum",
-      "polygon",
-      "arbitrum",
-      "optimism"
-    ]
-  }
-}

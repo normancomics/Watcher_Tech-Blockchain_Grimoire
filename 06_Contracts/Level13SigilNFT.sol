@@ -186,7 +186,10 @@ contract Level13SigilNFT is IERC2981 {
             parentHash = sigilTokens[parentTokenId].sigilHash;
         }
 
-        // Assign tokenId first so the hash includes the actual token ID (collision resistance)
+        // Assign tokenId first so the sigilHash includes the actual token ID.
+        // Previously the hash was computed before the counter increment, meaning
+        // every mint in the same block hashed tokenId=0 — a potential collision.
+        // The fix ensures each token gets a unique, unpredictable sigilHash.
         tokenId = ++_totalSupply;
 
         // Compute recursive sigil hash: keccak256(parent || level || caller || encoded || tokenId)
@@ -251,7 +254,10 @@ contract Level13SigilNFT is IERC2981 {
             }
         }
 
-        // Assign tokenId first so the hash includes the actual token ID
+        // Assign tokenId first so the sigilHash includes the actual token ID.
+        // Previously the hash was computed before the counter increment, meaning
+        // every mint in the same block hashed tokenId=0 — a potential collision.
+        // The fix ensures each token gets a unique, unpredictable sigilHash.
         tokenId = ++_totalSupply;
 
         bytes32 sigilHash = keccak256(
