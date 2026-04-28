@@ -89,6 +89,33 @@ const TOOL_POLICIES: Record<string, SecurityPolicy> = {
     allowedKnowledgeTags: [],
     maxKnowledgeChunks: 0,
   },
+  grimoire_quantum_entropy: {
+    name: "quantum_entropy",
+    timeoutMs: 5_000,
+    maxInputLength: 500,
+    maxOutputLength: 20_000,
+    allowKnowledgeAccess: false,
+    allowedKnowledgeTags: [],
+    maxKnowledgeChunks: 0,
+  },
+  grimoire_rag_synthesis: {
+    name: "rag_synthesis",
+    timeoutMs: 20_000,
+    maxInputLength: 5_000,
+    maxOutputLength: 200_000,
+    allowKnowledgeAccess: true,
+    allowedKnowledgeTags: [],   // All tags allowed for synthesis
+    maxKnowledgeChunks: 30,
+  },
+  grimoire_sovereign_invoke: {
+    name: "sovereign_invoke",
+    timeoutMs: 60_000,          // Sovereign pipeline may chain 4–8 steps
+    maxInputLength: 200_000,    // Must accept full contract source
+    maxOutputLength: 500_000,
+    allowKnowledgeAccess: true,
+    allowedKnowledgeTags: [],
+    maxKnowledgeChunks: 50,
+  },
 };
 
 /**

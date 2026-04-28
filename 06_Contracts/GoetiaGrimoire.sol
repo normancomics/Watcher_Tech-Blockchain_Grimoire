@@ -6,7 +6,10 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 /**
  * @title GoetiaGrimoire
  * @author normancomics.eth 2026 A.D.
- * @notice On-chain grimoire of the Watchers and forbidden knowledge
+ * @notice On-chain grimoire of the Watchers and forbidden knowledge.
+ * @dev Educational reference. The flashSummon and portalInvoke functions
+ *      use delegatecall/call on arbitrary addresses — these are intentional
+ *      exploit archetype demonstrations. DO NOT deploy without access controls.
  */
 contract GoetiaGrimoire is Ownable {
 

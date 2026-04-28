@@ -22,6 +22,18 @@
     "grimoire_family_threat_intel": {
       "price": "0.30",
       "description": "Threat intelligence report based on the 13 Family archetype framework"
+    },
+    "grimoire_quantum_entropy": {
+      "price": "0.40",
+      "description": "Generate post-quantum secure entropy with Enochian/Kabbalistic mixing, PQC-algorithm labelling, and optional commit-reveal pairs for on-chain randomness"
+    },
+    "grimoire_rag_synthesis": {
+      "price": "0.20",
+      "description": "Multi-document RAG synthesis with citation chains, cross-reference detection, and Seven Pillars of Wisdom provenance scoring"
+    },
+    "grimoire_sovereign_invoke": {
+      "price": "1.00",
+      "description": "Full autonomous sovereign agent pipeline — orchestrates 4–8 internal tool steps (audit, RAG, Watcher consult, defense) into a unified Sovereign Judgment report"
     }
   },
   "_instructions": {

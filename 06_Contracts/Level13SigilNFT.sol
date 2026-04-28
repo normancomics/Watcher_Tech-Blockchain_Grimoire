@@ -186,8 +186,14 @@ contract Level13SigilNFT is IERC2981 {
             parentHash = sigilTokens[parentTokenId].sigilHash;
         }
 
+        // Assign tokenId first so the sigilHash includes the actual token ID.
+        // Previously the hash was computed before the counter increment, meaning
+        // every mint in the same block hashed tokenId=0 — a potential collision.
+        // The fix ensures each token gets a unique, unpredictable sigilHash.
+        tokenId = ++_totalSupply;
+
         // Compute recursive sigil hash: keccak256(parent || level || caller || encoded || tokenId)
-        // tokenId is included to guarantee uniqueness even within the same block.
+        // tokenId guarantees uniqueness even for same-block, same-caller mints.
         bytes32 sigilHash = keccak256(
             abi.encodePacked(
                 parentHash,
@@ -195,11 +201,9 @@ contract Level13SigilNFT is IERC2981 {
                 msg.sender,
                 encodedSequence,
                 block.timestamp,
-                tokenId   // prevents same-block collisions
+                tokenId
             )
         );
-
-        tokenId = ++_totalSupply;
 
         _owners[tokenId]   = msg.sender;
         _balances[msg.sender]++;
@@ -250,6 +254,12 @@ contract Level13SigilNFT is IERC2981 {
             }
         }
 
+        // Assign tokenId first so the sigilHash includes the actual token ID.
+        // Previously the hash was computed before the counter increment, meaning
+        // every mint in the same block hashed tokenId=0 — a potential collision.
+        // The fix ensures each token gets a unique, unpredictable sigilHash.
+        tokenId = ++_totalSupply;
+
         bytes32 sigilHash = keccak256(
             abi.encodePacked(
                 parentHash,
@@ -257,11 +267,9 @@ contract Level13SigilNFT is IERC2981 {
                 recipient,
                 encodedSequence,
                 block.timestamp,
-                tokenId   // prevents same-block collisions
+                tokenId
             )
         );
-
-        tokenId = ++_totalSupply;
 
         _owners[tokenId]  = recipient;
         _balances[recipient]++;

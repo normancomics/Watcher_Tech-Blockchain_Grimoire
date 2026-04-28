@@ -6,9 +6,13 @@ test       = "test"
 script     = "script"
 solc       = "0.8.24"
 
+# Additional source directories (resolved via relative imports in tests/scripts)
+# erc8004-registry/ and technical-grimoire/ are referenced by relative path.
+
 # ─── Remappings ───────────────────────────────────────────────────────────────
 remappings = [
     "@openzeppelin/contracts/=lib/openzeppelin-contracts/contracts/",
+    "forge-std/=lib/forge-std/src/",
 ]
 
 # ─── Optimizer ────────────────────────────────────────────────────────────────
