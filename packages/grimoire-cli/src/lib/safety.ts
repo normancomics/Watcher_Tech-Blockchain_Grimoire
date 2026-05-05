@@ -26,7 +26,8 @@ const EXPLOIT_INSTRUCTION_PATTERNS: Array<{ pattern: RegExp; label: string }> = 
     label: "numbered exploit steps",
   },
   {
-    pattern: /private.{0,10}key\s*[:=]\s*0x[0-9a-fA-F]{64}/i,
+    // Match 0x-prefixed OR bare 64-char hex private keys
+    pattern: /private.{0,10}key\s*[:=]\s*(0x)?[0-9a-fA-F]{64}\b/i,
     label: "hardcoded private key",
   },
   {

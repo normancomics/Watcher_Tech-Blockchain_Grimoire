@@ -6,8 +6,12 @@ import { readFileSync } from "node:fs";
 import { extname } from "node:path";
 import yaml from "js-yaml";
 
-/** Regex that matches YAML front-matter at the top of a Markdown file */
-export const FRONTMATTER_RE = /^---\n([\s\S]*?)\n---\n?([\s\S]*)/;
+/**
+ * Regex that matches YAML front-matter at the top of a Markdown file.
+ * Requires the closing '---' to be followed by a newline, ensuring consistent
+ * parsing across files with or without a trailing blank line.
+ */
+export const FRONTMATTER_RE = /^---\n([\s\S]*?)\n---\n([\s\S]*)/;
 
 export interface ParsedMarkdown {
   frontMatter: Record<string, unknown>;

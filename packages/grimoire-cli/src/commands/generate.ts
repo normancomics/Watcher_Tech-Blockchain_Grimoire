@@ -7,6 +7,7 @@
 
 import { writeFileSync, mkdirSync, existsSync } from "node:fs";
 import { resolve, join } from "node:path";
+import { execFileSync } from "node:child_process";
 import yaml from "js-yaml";
 import { OpenMythosAdapter } from "../lib/openmythos.js";
 import { checkContent, addEpistemicNotice, validateSafetyFields } from "../lib/safety.js";
@@ -164,7 +165,6 @@ export async function generateCommand(ctx: CommandContext): Promise<void> {
 }
 
 async function autoCommit(rootDir: string, count: number, type: string): Promise<void> {
-  const { execFileSync } = await import("node:child_process");
   try {
     execFileSync("git", ["add", rootDir], { stdio: "inherit" });
     execFileSync(
