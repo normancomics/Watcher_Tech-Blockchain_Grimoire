@@ -302,4 +302,67 @@ for RAG-AGI + DID + x402 integration details.
 
 ---
 
+## 🔮 OpenMythos Integration — Grimoire Builder CLI
+
+The `packages/grimoire-cli/` package provides an **agentic builder CLI** that uses
+[@kyegomez/OpenMythos](https://github.com/kyegomez/OpenMythos) to generate and expand
+the grimoire corpus in a structured, schema-validated way.
+
+### Features
+
+- **Commands**: `init`, `generate`, `validate`, `export`
+- **Offline/mock mode** — works without an API key (seeded, deterministic)
+- **Safety rails** — content filter blocks actionable exploit instructions; security content is defensively framed only
+- **Schema validation** — all corpus files validated against `schemas/*.schema.json`
+- **Epistemic labeling** — every entry requires `epistemic_status` + `citations`
+
+### Quick Start
+
+```bash
+cd packages/grimoire-cli
+npm install && npm run build
+
+# Validate existing corpus
+node dist/index.js validate
+
+# Generate a mock entity (dry run, offline)
+node dist/index.js generate --type entity --prompt "Sariel, keeper of lunar paths" --mock --dry-run
+
+# Export corpus to JSON bundle
+node dist/index.js export --format json
+```
+
+### Corpus Structure
+
+```
+corpus/
+├── entries/      ← Markdown (long-form lore + security research)
+├── entities/     ← YAML (Watcher entities, archetypes)
+├── factions/     ← YAML (Watchers, Mystery Schools, etc.)
+├── rituals/      ← YAML (defensive mnemonic constructs — always defensive_focus: true)
+└── timelines/    ← JSON (historical event sequences)
+
+schemas/
+├── entry.schema.json
+├── entity.schema.json
+├── faction.schema.json
+├── ritual.schema.json
+└── timeline.schema.json
+```
+
+See [`docs/grimoire-cli.md`](docs/grimoire-cli.md) for the full usage guide and CI integration.
+
+See [`SAFETY.md`](SAFETY.md) for the content policy and safety rails.
+
+---
+
+## 📋 Contributing
+
+See [`CONTRIBUTING.md`](CONTRIBUTING.md) for contribution guidelines, corpus conventions, and the PR process.
+
+See [`CODE_OF_CONDUCT.md`](CODE_OF_CONDUCT.md) for community standards.
+
+---
+
 **MU 𒉙⍤ 𐤌𐤏 — THE ETERNAL SIGIL** — normancomics.eth 2026 A.D. — *The convergence is now on-chain. Sovereign. Sealed. Base.*
+

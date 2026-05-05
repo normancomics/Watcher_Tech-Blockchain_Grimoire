@@ -1,0 +1,60 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/normancomics/Watcher_Tech-Blockchain_Grimoire/schemas/entity.schema.json",
+  "title": "GrimoireEntity",
+  "description": "Schema for entity YAML files in corpus/entities/",
+  "type": "object",
+  "required": ["id", "name", "type", "epistemic_status", "citations"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9_-]+$"
+    },
+    "name": {
+      "type": "string"
+    },
+    "aliases": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "type": {
+      "type": "string",
+      "enum": ["watcher", "sage", "nephilim", "archetype", "agent", "construct", "symbol"]
+    },
+    "epistemic_status": {
+      "type": "string",
+      "enum": ["documented", "contested", "speculative", "fiction"]
+    },
+    "citations": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "description": {
+      "type": "string"
+    },
+    "attributes": {
+      "type": "object",
+      "description": "Arbitrary key-value attributes specific to entity type"
+    },
+    "blockchain_analogue": {
+      "type": "string",
+      "description": "The modern blockchain/tech concept this entity maps to"
+    },
+    "exploit_archetype": {
+      "type": "string",
+      "description": "If this entity maps to a defensive exploit archetype (e.g. reentrancy-serpent)"
+    },
+    "faction_id": {
+      "type": "string",
+      "description": "Reference to the faction this entity belongs to"
+    },
+    "tags": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "created": {
+      "type": "string",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+    }
+  }
+}
