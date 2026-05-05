@@ -151,6 +151,15 @@ async function main(): Promise<void> {
   if (forceMock) config.openmythos.mode = "mock";
   if (seedOverride !== undefined) config.generation.seed = seedOverride;
 
+  // Allow API key override via environment variable
+  const envApiKey = process.env["OPENMYTHOS_API_KEY"];
+  if (envApiKey) {
+    config.openmythos.apiKey = envApiKey;
+    if (config.openmythos.mode === "mock") {
+      config.openmythos.mode = "online";
+    }
+  }
+
   const ctx = { config, flags, verbose };
 
   try {

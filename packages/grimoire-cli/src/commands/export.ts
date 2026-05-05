@@ -5,9 +5,10 @@
  * Does NOT auto-commit. Use git to track exported bundles.
  */
 
-import { readdirSync, readFileSync, writeFileSync, mkdirSync, existsSync } from "node:fs";
+import { readdirSync, writeFileSync, mkdirSync, existsSync } from "node:fs";
 import { resolve, join, extname, basename } from "node:path";
 import yaml from "js-yaml";
+import { parseCorpusFile } from "../lib/corpus-utils.js";
 import type { CommandContext } from "../lib/config.js";
 
 interface ExportBundle {
@@ -74,7 +75,7 @@ export async function exportCommand(ctx: CommandContext): Promise<void> {
 
     for (const file of files) {
       const filePath = join(dirPath, file);
-      const parsed = parseCorpusFile(filePath);
+      const parsed = parseCorpusFileForExport(filePath);
       if (parsed) {
         bundle[key].push(parsed);
         if (verbose) console.log(`  loaded: ${filePath}`);
@@ -109,31 +110,12 @@ export async function exportCommand(ctx: CommandContext): Promise<void> {
   console.log(`\n[grimoire export] Done. ${total} documents exported in format(s): ${formats.join(", ")}`);
 }
 
-function parseCorpusFile(filePath: string): Record<string, unknown> | null {
-  try {
-    const raw = readFileSync(filePath, "utf-8");
-    const ext = extname(filePath);
-
-    if (ext === ".md") {
-      const match = raw.match(/^---\n([\s\S]*?)\n---\n?([\s\S]*)/);
-      if (!match) return null;
-      const frontMatter = yaml.load(match[1]) as Record<string, unknown>;
-      frontMatter["_body"] = match[2]?.trim() ?? "";
-      frontMatter["_source_file"] = basename(filePath);
-      return frontMatter;
-    } else if (ext === ".yaml" || ext === ".yml") {
-      const parsed = yaml.load(raw) as Record<string, unknown>;
-      parsed["_source_file"] = basename(filePath);
-      return parsed;
-    } else if (ext === ".json") {
-      const parsed = JSON.parse(raw) as Record<string, unknown>;
-      parsed["_source_file"] = basename(filePath);
-      return parsed;
-    }
-  } catch (err) {
-    console.warn(`  [WARN] Failed to parse ${filePath}: ${(err as Error).message}`);
-  }
-  return null;
+function parseCorpusFileForExport(filePath: string): Record<string, unknown> | null {
+  const parsed = parseCorpusFile(filePath);
+  if (!parsed) return null;
+  // Add source file annotation for export metadata
+  parsed["_source_file"] = basename(filePath);
+  return parsed;
 }
 
 function bundleToMarkdown(bundle: ExportBundle): string {

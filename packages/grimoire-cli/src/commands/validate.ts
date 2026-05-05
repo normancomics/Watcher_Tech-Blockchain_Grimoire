@@ -8,6 +8,7 @@ import { resolve, join, extname } from "node:path";
 import yaml from "js-yaml";
 import { validateAgainstSchema, schemaForCorpusPath } from "../lib/schema-validator.js";
 import { validateSafetyFields } from "../lib/safety.js";
+import { parseMarkdown } from "../lib/corpus-utils.js";
 import type { CommandContext } from "../lib/config.js";
 
 interface FileResult {
@@ -103,14 +104,14 @@ function validateFile(filePath: string, schemasRoot: string, verbose: boolean): 
     const raw = readFileSync(filePath, "utf-8");
 
     if (ext === ".md") {
-      // Parse YAML front-matter only
-      const match = raw.match(/^---\n([\s\S]*?)\n---/);
-      if (!match) {
+      // Parse YAML front-matter using shared utility
+      const parsed = parseMarkdown(raw);
+      if (!parsed) {
         result.errors.push("Missing YAML front-matter (expected ---...--- block at top of file)");
         result.valid = false;
         return result;
       }
-      data = yaml.load(match[1]) as Record<string, unknown>;
+      data = parsed.frontMatter;
     } else if (ext === ".yaml" || ext === ".yml") {
       data = yaml.load(raw) as Record<string, unknown>;
     } else if (ext === ".json") {

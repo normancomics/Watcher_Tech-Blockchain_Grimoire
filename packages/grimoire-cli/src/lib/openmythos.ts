@@ -131,7 +131,7 @@ export class OpenMythosAdapter {
 
   /** Deterministic mock generation using seeded PRNG */
   private mockGenerate(request: GenerationRequest): GenerationResult {
-    const id = slugify(request.prompt.slice(0, 40)) + "_" + (Math.abs(this.rng() * 1000) | 0);
+    const id = slugify(request.prompt.slice(0, 40)) + "_" + Math.floor(this.rng() * 1000);
     const epistemicStatus = request.epistemicStatus ?? "fiction";
     const now = new Date().toISOString().split("T")[0];
 

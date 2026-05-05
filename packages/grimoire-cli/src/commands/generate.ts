@@ -164,12 +164,14 @@ export async function generateCommand(ctx: CommandContext): Promise<void> {
 }
 
 async function autoCommit(rootDir: string, count: number, type: string): Promise<void> {
-  const { execSync } = await import("node:child_process");
+  const { execFileSync } = await import("node:child_process");
   try {
-    execSync(`git add ${rootDir}`, { stdio: "inherit" });
-    execSync(`git commit -m "corpus: add ${count} generated ${type} entries [grimoire-cli]"`, {
-      stdio: "inherit",
-    });
+    execFileSync("git", ["add", rootDir], { stdio: "inherit" });
+    execFileSync(
+      "git",
+      ["commit", "-m", `corpus: add ${count} generated ${type} entries [grimoire-cli]`],
+      { stdio: "inherit" }
+    );
     console.log("[grimoire generate] ✓ Changes committed.");
   } catch {
     console.warn("[grimoire generate] Auto-commit failed. Commit manually.");
