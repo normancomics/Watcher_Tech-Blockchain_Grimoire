@@ -1,0 +1,55 @@
+{
+  "name": "@normancomics/grimoire-cli",
+  "version": "1.0.0",
+  "description": "Agentic builder CLI for the Watcher Tech Blockchain Grimoire — uses OpenMythos to generate and expand corpus datasets",
+  "license": "MIT",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "grimoire": "dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "start": "node dist/index.js",
+    "lint": "eslint src --ext .ts",
+    "test": "node --experimental-vm-modules node_modules/.bin/jest",
+    "validate": "node dist/index.js validate",
+    "prepublishOnly": "npm run build && npm run lint && npm test"
+  },
+  "dependencies": {
+    "ajv": "^8.17.1",
+    "ajv-formats": "^3.0.1",
+    "js-yaml": "^4.1.0",
+    "seedrandom": "^3.0.5"
+  },
+  "devDependencies": {
+    "@types/jest": "^29.5.14",
+    "@types/js-yaml": "^4.0.9",
+    "@types/node": "^22.0.0",
+    "@types/seedrandom": "^3.0.8",
+    "@typescript-eslint/eslint-plugin": "^8.0.0",
+    "@typescript-eslint/parser": "^8.0.0",
+    "eslint": "^9.0.0",
+    "jest": "^29.7.0",
+    "ts-jest": "^29.2.0",
+    "typescript": "^5.7.0"
+  },
+  "optionalDependencies": {
+    "@kyegomez/openmythos": "*"
+  },
+  "jest": {
+    "preset": "ts-jest",
+    "testEnvironment": "node",
+    "extensionsToTreatAsEsm": [".ts"],
+    "moduleNameMapper": {
+      "^(\\.{1,2}/.*)\\.js$": "$1"
+    },
+    "transform": {
+      "^.+\\.tsx?$": ["ts-jest", { "useESM": true }]
+    }
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

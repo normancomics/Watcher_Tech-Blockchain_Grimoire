@@ -1,0 +1,79 @@
+id: oracle-manipulation-counter-ritual
+name: The Oracle Manipulation Counter-Ritual — Truthseeker's Ward
+epistemic_status: fiction
+citations: []
+defensive_focus: true
+description: |
+  The Oracle Manipulation Counter-Ritual maps the oracle manipulation vulnerability pattern
+  to the ancient archetype of the corrupted oracle/seer — a trusted source of truth that
+  has been compromised by external influence. This is a DEFENSIVE mnemonic construct.
+
+  This ritual entry is a FICTION / LORE construct. It contains no actionable exploit code.
+  For technical implementation, see the oracle defense patterns in 04_Guardianship_Archetypes/.
+archetype: oracle-manipulation
+moon_phase: waxing-gibbous
+stellar_alignment: "Mercury retrograde — symbolic of communication disruption"
+blockchain_event_pattern: |
+  Oracle manipulation occurs when the price feed or data source a smart contract relies on
+  can be temporarily distorted — often via flash loans that move AMM prices within a single
+  block, which a naive oracle reads as the true price.
+
+  DEFENSIVE FOCUS: Use TWAP (Time-Weighted Average Price) oracles, Chainlink decentralized
+  feeds, or multi-source aggregation to prevent single-block price distortion from affecting
+  protocol decisions.
+defense_paradigm: atlantean-vault
+participants:
+  - sariel
+  - kokabiel
+description_extended: |
+  ## Symbolic Framework (Lore)
+
+  In the Grimoire's symbolic system, the Oracle Manipulation pattern corresponds to:
+
+  - **Kokabiel's star-sign corruption** — when celestial patterns are misread or forged
+  - **Sariel's moon-path distortion** — when the temporal anchor is displaced
+  - **The Waxing Gibbous phase** — apparent fullness masking the incomplete picture
+
+  ## Defensive Ward (Technical)
+
+  The ritual "ward" against oracle manipulation:
+
+  ### Use TWAP Instead of Spot Price
+
+  ```solidity
+  // DEFENSIVE PATTERN — Uniswap V3 TWAP Oracle
+  // Query the time-weighted average price over a meaningful window
+  function getTWAP(address pool, uint32 twapInterval) internal view returns (uint256) {
+      uint32[] memory secondsAgos = new uint32[](2);
+      secondsAgos[0] = twapInterval;
+      secondsAgos[1] = 0;
+      (int56[] memory tickCumulatives, ) = IUniswapV3Pool(pool).observe(secondsAgos);
+      int56 tickCumulativesDelta = tickCumulatives[1] - tickCumulatives[0];
+      int24 arithmeticMeanTick = int24(tickCumulativesDelta / int56(uint56(twapInterval)));
+      return TickMath.getSqrtRatioAtTick(arithmeticMeanTick);
+  }
+  ```
+
+  ### Use Decentralized Oracle Networks
+
+  - **Chainlink Price Feeds**: Aggregated from multiple independent sources, cannot be
+    manipulated by a single flash loan
+  - **Pyth Network**: High-frequency pull oracle with confidence intervals
+  - **Chronicle Protocol**: Permissioned multi-source aggregation
+
+  ## Audit Checklist (Defensive)
+
+  - [ ] No reliance on single-source AMM spot prices for high-value decisions
+  - [ ] TWAP window is long enough to resist single-block manipulation (≥ 30 minutes recommended)
+  - [ ] Oracle freshness checks implemented (reject stale prices)
+  - [ ] Circuit breakers activate on abnormal price deviations
+  - [ ] Multiple independent oracle sources cross-validated where possible
+tags:
+  - oracle-manipulation
+  - twap
+  - chainlink
+  - defense
+  - audit
+  - fiction
+  - waxing-gibbous
+created: "2026-05-05"

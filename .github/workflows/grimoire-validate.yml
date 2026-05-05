@@ -1,0 +1,46 @@
+name: Grimoire Corpus Validation
+
+on:
+  push:
+    branches: ["**"]
+    paths:
+      - "corpus/**"
+      - "schemas/**"
+      - "packages/grimoire-cli/**"
+  pull_request:
+    paths:
+      - "corpus/**"
+      - "schemas/**"
+      - "packages/grimoire-cli/**"
+
+jobs:
+  validate:
+    name: Validate corpus & CLI
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+          cache-dependency-path: packages/grimoire-cli/package-lock.json
+
+      - name: Install CLI dependencies
+        run: npm ci
+        working-directory: packages/grimoire-cli
+
+      - name: Build CLI
+        run: npm run build
+        working-directory: packages/grimoire-cli
+
+      - name: Run tests
+        run: npm test
+        working-directory: packages/grimoire-cli
+
+      - name: Validate corpus (offline/mock mode — no API key required)
+        run: node dist/index.js validate
+        working-directory: packages/grimoire-cli

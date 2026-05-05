@@ -1,0 +1,45 @@
+id: mystery-schools
+name: The Mystery Schools
+aliases:
+  - Hermetic Brotherhoods
+  - Mystery Traditions
+  - Esoteric Schools
+  - Secret Societies
+epistemic_status: contested
+citations:
+  - "Frances Yates, Giordano Bruno and the Hermetic Tradition, 1964"
+  - "Manly P. Hall, The Secret Teachings of All Ages, 1928"
+  - "Christopher McIntosh, The Rosicrucians, 1997"
+  - "David Stevenson, The Origins of Freemasonry, 1988"
+description: |
+  The Mystery Schools represent a broad category of initiatory organizations across ancient
+  and medieval history that preserved and transmitted esoteric knowledge through graduated
+  access systems. From the Eleusinian Mysteries of ancient Greece through the Hermetic
+  academies of Renaissance Florence to the Rosicrucian manifestos of 1614–1616 and
+  Freemasonic lodges of the 18th century, these organizations maintained a structural
+  pattern: hierarchical access, oath-bound membership, and encoded transmission.
+
+  Whether the knowledge they preserved was genuinely "Watcher-transmitted" (a speculative/
+  fiction claim) or independently developed (documented), the structural pattern of
+  hierarchical gated-knowledge transmission is historically documented.
+origin_era: "Ancient Greece through Early Modern Europe (c. 500 BCE – 1800 CE)"
+blockchain_analogue: |
+  Mystery schools map to the protocol governance layer — the set of actors who control
+  upgrade keys, multi-sig wallets, and DAO voting power. Their graduated initiation structure
+  directly parallels role-based access control (RBAC) in smart contract systems.
+  The transmission of sealed knowledge mirrors on-chain key-ceremony procedures.
+members: []
+doctrines:
+  - "Knowledge is hierarchical — gatekeeping preserves power and prevents misuse"
+  - "Initiation as proof-of-commitment — oath-swearing as trust establishment"
+  - "Sealed transmission — information encoded so only initiates can decode"
+  - "Accumulative revelation — deeper truths revealed at higher grades"
+tags:
+  - mystery-schools
+  - hermetic
+  - rosicrucian
+  - freemasonry
+  - initiation
+  - governance
+  - access-control
+created: "2026-05-05"

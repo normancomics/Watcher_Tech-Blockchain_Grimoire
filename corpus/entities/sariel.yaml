@@ -1,0 +1,37 @@
+id: sariel
+name: Sariel
+aliases:
+  - Suriel
+  - Uriel (related)
+  - Sarakel
+type: watcher
+epistemic_status: contested
+citations:
+  - "1 Enoch 8:3 — Sariel taught the course of the moon"
+  - "R.H. Charles, The Book of Enoch, Oxford 1917, p. 16"
+  - "Matthew Black, The Book of Enoch or 1 Enoch, 1985 — notes contested identification with Uriel"
+description: |
+  Sariel is identified in 1 Enoch as the Watcher who revealed the courses of the moon to humanity —
+  specifically the paths of lunar movement and temporal computation. This gives Sariel dominion over
+  calendrical systems, cyclical timing, and the measurement of periodic phenomena.
+
+  Note: Some manuscripts conflate Sariel with Uriel (the archangel of light); the identification
+  is contested across Dead Sea Scrolls variants.
+attributes:
+  role: Revealer of moon-paths and temporal cycles
+  domain: Lunar timing, celestial calculation, calendrical systems
+  punishment: Described variously; less emphasis than Semjaza/Azazel
+blockchain_analogue: |
+  Sariel maps to the Timestamp Drift archetype — the knowledge of lunar (temporal) patterns
+  corresponds to block.timestamp manipulation awareness and epoch-boundary analysis in Ethereum.
+  The Timelock Sentinel defensive role is Sariel's redemptive aspect.
+exploit_archetype: timestamp-drift
+faction_id: watchers
+tags:
+  - watcher
+  - temporal
+  - moon
+  - timestamp
+  - oracle
+  - calendrical
+created: "2026-05-05"

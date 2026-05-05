@@ -1,0 +1,67 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/normancomics/Watcher_Tech-Blockchain_Grimoire/schemas/ritual.schema.json",
+  "title": "GrimoireRitual",
+  "description": "Schema for ritual YAML files in corpus/rituals/. Rituals are symbolic/defensive analogues — no actionable exploit instructions permitted.",
+  "type": "object",
+  "required": ["id", "name", "epistemic_status", "citations", "defensive_focus"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9_-]+$"
+    },
+    "name": {
+      "type": "string"
+    },
+    "epistemic_status": {
+      "type": "string",
+      "enum": ["documented", "contested", "speculative", "fiction"]
+    },
+    "citations": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "defensive_focus": {
+      "type": "boolean",
+      "description": "REQUIRED true: confirms this ritual entry is framed defensively with no actionable exploit instructions",
+      "const": true
+    },
+    "description": {
+      "type": "string"
+    },
+    "archetype": {
+      "type": "string",
+      "description": "Exploit/defense archetype this ritual maps to (e.g. reentrancy-serpent, oracle-manipulation)"
+    },
+    "moon_phase": {
+      "type": "string",
+      "enum": ["new", "waxing-crescent", "first-quarter", "waxing-gibbous", "full", "waning-gibbous", "last-quarter", "waning-crescent", "any"],
+      "description": "Symbolic lunar timing association"
+    },
+    "stellar_alignment": {
+      "type": "string",
+      "description": "Symbolic stellar or planetary alignment"
+    },
+    "blockchain_event_pattern": {
+      "type": "string",
+      "description": "The on-chain event pattern this ritual symbolically corresponds to (defensive framing)"
+    },
+    "defense_paradigm": {
+      "type": "string",
+      "description": "The defensive paradigm from the Atlantean-Vault framework"
+    },
+    "participants": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Entity IDs involved in this ritual"
+    },
+    "tags": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "created": {
+      "type": "string",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+    }
+  }
+}

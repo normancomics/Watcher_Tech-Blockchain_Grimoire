@@ -1,0 +1,39 @@
+id: azazel
+name: Azazel
+aliases:
+  - Azael
+  - Azazyel
+  - Azaiel
+type: watcher
+epistemic_status: documented
+citations:
+  - "1 Enoch 8:1-2 — Azazel taught men to make swords, knives, shields, and breastplates"
+  - "Leviticus 16:8-10 — The scapegoat sent to Azazel in the wilderness"
+  - "R.H. Charles, The Book of Enoch, Oxford 1917, p. 15-16"
+  - "Loren Stuckenbruck, The Book of Giants from Qumran, 1997"
+description: |
+  Azazel is one of the most prominent Watchers in the Enochian tradition, credited with transmitting
+  the technologies of metallurgy (weapons, armor), cosmetics (beautifying of eyelids), and the
+  knowledge of precious stones and colouring tinctures. In 1 Enoch, he bears primary responsibility
+  for corrupting humanity. The Day of Atonement scapegoat ritual (Leviticus 16) sends a goat
+  "for Azazel" into the wilderness, interpreted as binding of the spirit of corruption.
+attributes:
+  role: Transmitter of metallurgy and cosmetics
+  domain: Weapons-forging, armor, precious stones, pigments
+  punishment: Bound hand and foot, cast into the darkness of Dudael, face covered
+  biblical_parallel: Scapegoat / Leviticus 16
+blockchain_analogue: |
+  Azazel maps to the Flash Loan Cascade archetype — rapid capital mobilization using tools
+  (weapons/armor = attack contracts) assembled from transmitted knowledge, deployed in a single
+  atomic transaction that exploits the gap between resource availability and guard activation.
+  The cosmetics domain parallels address spoofing and token metadata manipulation.
+exploit_archetype: flash-loan-cascade
+faction_id: watchers
+tags:
+  - watcher
+  - metallurgy
+  - weapons
+  - flash-loan
+  - cosmetics
+  - scapegoat
+created: "2026-05-05"
