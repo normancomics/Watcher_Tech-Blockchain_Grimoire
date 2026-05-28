@@ -1,0 +1,34 @@
+id: semjaza
+name: Semjaza
+aliases:
+  - Shemihaza
+  - Samyaza
+  - Semyaz
+type: watcher
+epistemic_status: documented
+citations:
+  - "1 Enoch 6:3-7 — Semjaza named as leader of the Watchers"
+  - "Dead Sea Scrolls, Book of Giants, 4Q531"
+  - "R.H. Charles, The Book of Enoch, Oxford 1917, p. 13"
+description: |
+  Semjaza (Hebrew: שמיחזה, "my name has seen" or "he sees the name") is identified in 1 Enoch
+  as the chief leader of the 200 Watchers who descended upon Mount Hermon. He led the oath-swearing
+  ceremony binding all Watchers to their pact of descent and knowledge-transmission.
+attributes:
+  role: Chief of the Watchers
+  descent_location: Mount Hermon
+  domain: Enchantments and root-cutting (pharmakeia)
+  punishment: Bound beneath the earth until the Day of Judgment
+blockchain_analogue: |
+  Semjaza corresponds to the Governance Capture archetype — the entity that binds other actors
+  through coordinated oath-swearing mirrors multi-sig collusion and governance vote manipulation
+  in decentralized protocols.
+exploit_archetype: governance-capture
+faction_id: watchers
+tags:
+  - watcher
+  - leader
+  - governance
+  - covenant
+  - enoch
+created: "2026-05-05"

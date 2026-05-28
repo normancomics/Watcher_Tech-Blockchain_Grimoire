@@ -1,0 +1,54 @@
+id: the-watchers
+name: The Watchers
+aliases:
+  - Irin
+  - Grigori
+  - Sons of God (Bene Elohim)
+  - The 200
+epistemic_status: documented
+citations:
+  - "1 Enoch 6:1-8 — The Watchers' descent and oath on Mount Hermon"
+  - "Genesis 6:1-4 — Sons of God and daughters of men"
+  - "Dead Sea Scrolls, Damascus Document (CD 2:18)"
+  - "Book of Jubilees 5:1-11"
+description: |
+  The Watchers (Aramaic: ʿIyrין; Hebrew: עִירִין) are a class of divine beings described in
+  Second Temple Jewish literature, most extensively in 1 Enoch. A group of 200 Watchers,
+  led by Semjaza, swore a binding oath on Mount Hermon and descended to earth, intermarrying
+  with human women and transmitting forbidden knowledge to humanity.
+
+  The term "Watcher" (Aramaic: ʿiyr) means "one who is awake" or "guardian" — implying their
+  original function was to observe and protect humanity before their transgression.
+origin_era: "Antediluvian (pre-Flood, mythological timeline)"
+blockchain_analogue: |
+  The Watchers as a collective map to the validator/miner network — distributed agents
+  who are meant to secure the system (observe/watch) but whose coordinated defection
+  (oath-swearing to act outside protocol) creates systemic risk. The 200-strong group
+  mirrors threshold collusion scenarios in Byzantine fault-tolerance models.
+members:
+  - semjaza
+  - azazel
+  - sariel
+  - armaros
+  - baraqiel
+  - kokabiel
+  - tamiel
+  - gadreel
+  - penemue
+  - yomiel
+  - turel
+  - asael
+  - shamsiel
+doctrines:
+  - "Transmission of forbidden knowledge accelerates human civilization"
+  - "Oath-binding creates collective commitment beyond individual defection"
+  - "Guardianship can be turned to exploitation when external oversight is absent"
+  - "Knowledge once transmitted cannot be recalled — immutability principle"
+tags:
+  - watcher
+  - angelic
+  - foundation
+  - enoch
+  - conspiracy
+  - distributed-actors
+created: "2026-05-05"

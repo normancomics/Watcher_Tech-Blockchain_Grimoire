@@ -1,0 +1,36 @@
+{
+  "openmythos": {
+    "mode": "mock",
+    "model": "mythos-v1",
+    "apiKey": "",
+    "baseUrl": "https://api.openmythos.dev/v1",
+    "timeout": 30000
+  },
+  "corpus": {
+    "rootDir": "../../corpus",
+    "schemasDir": "../../schemas",
+    "entriesDir": "entries",
+    "entitiesDir": "entities",
+    "factionsDir": "factions",
+    "ritualsDir": "rituals",
+    "timelinesDir": "timelines"
+  },
+  "generation": {
+    "seed": 42,
+    "deterministicMode": true,
+    "defaultEpistemicStatus": "speculative",
+    "requireCitationsFor": ["documented"],
+    "autoLabel": true
+  },
+  "safety": {
+    "enableContentFilter": true,
+    "rejectExploitInstructions": true,
+    "requireDefensiveFocusOnSecurity": true,
+    "allowedEpistemicStatuses": ["documented", "contested", "speculative", "fiction"]
+  },
+  "export": {
+    "outputDir": "../../dist/corpus-export",
+    "formats": ["json", "yaml", "markdown"],
+    "includeSchemas": true
+  }
+}

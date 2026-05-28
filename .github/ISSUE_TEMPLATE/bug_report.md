@@ -1,0 +1,36 @@
+---
+name: Bug Report
+about: Report a bug in the CLI, corpus validation, or dApp components
+title: "[BUG] "
+labels: ["bug"]
+assignees: []
+---
+
+## Describe the Bug
+
+<!-- A clear and concise description of what the bug is. -->
+
+## Steps to Reproduce
+
+1. 
+2. 
+3. 
+
+## Expected Behavior
+
+<!-- What did you expect to happen? -->
+
+## Actual Behavior
+
+<!-- What actually happened? Include error messages, stack traces, etc. -->
+
+## Environment
+
+- OS: 
+- Node.js version: 
+- CLI version (`grimoire --version`): 
+- Command run: `grimoire ...`
+
+## Additional Context
+
+<!-- Any other context, logs, or screenshots. -->

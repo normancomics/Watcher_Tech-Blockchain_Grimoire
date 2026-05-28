@@ -1,0 +1,76 @@
+id: reentrancy-serpent-ritual
+name: The Reentrancy Serpent Ritual — Defensive Ward
+epistemic_status: fiction
+citations: []
+defensive_focus: true
+description: |
+  The Reentrancy Serpent Ritual is a symbolic/lore construct in the Watcher Tech Grimoire
+  that maps the reentrancy vulnerability pattern to the mythological archetype of the Serpent
+  consuming itself (Ouroboros). It is presented as a DEFENSIVE mnemonic — a pattern for
+  auditors to recognize and ward against.
+
+  This ritual entry is a FICTION / LORE construct. It contains no actionable exploit code.
+  For the technical defensive implementation, see AtlanteanDefenseVault.sol.
+archetype: reentrancy-serpent
+moon_phase: full
+stellar_alignment: "Mars in Scorpio — symbolic of recursive force"
+blockchain_event_pattern: |
+  Reentrancy occurs when an external contract call allows the callee to re-enter the caller
+  before state is updated, enabling recursive fund drainage. The pattern was famously exploited
+  in the 2016 DAO hack (documented, $60M ETH drained).
+
+  DEFENSIVE FOCUS: The guard against reentrancy is the Checks-Effects-Interactions (CEI) pattern
+  and/or ReentrancyGuard modifiers. State must be updated BEFORE external calls.
+defense_paradigm: atlantean-vault
+participants:
+  - azazel
+description_extended: |
+  ## Symbolic Framework (Lore)
+
+  In the Grimoire's symbolic system, the Reentrancy Serpent corresponds to:
+
+  - **The Ouroboros** — the self-consuming serpent, symbol of recursive infinity
+  - **Azazel's weaponsmithing** — the forging of tools (contracts) that turn back on their creators
+  - **The Full Moon phase** — maximum visibility, maximum systemic stress
+
+  ## Defensive Ward (Technical)
+
+  The ritual "ward" against the Reentrancy Serpent is:
+
+  ```solidity
+  // DEFENSIVE PATTERN — Checks-Effects-Interactions (CEI)
+  // 1. CHECKS: validate all conditions first
+  require(balance[msg.sender] >= amount, "Insufficient balance");
+  // 2. EFFECTS: update state BEFORE external calls
+  balance[msg.sender] -= amount;
+  // 3. INTERACTIONS: external call LAST
+  (bool success, ) = msg.sender.call{value: amount}("");
+  require(success, "Transfer failed");
+  ```
+
+  Or use OpenZeppelin's `ReentrancyGuard`:
+
+  ```solidity
+  import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
+
+  contract MyContract is ReentrancyGuard {
+      function withdraw(uint256 amount) external nonReentrant {
+          // ... implementation
+      }
+  }
+  ```
+
+  ## Audit Checklist (Defensive)
+
+  - [ ] All state changes occur BEFORE external calls
+  - [ ] `nonReentrant` modifier applied to all withdrawal/transfer functions
+  - [ ] Pull-over-push payment pattern used where possible
+  - [ ] Cross-function reentrancy considered (not just same-function)
+tags:
+  - reentrancy
+  - serpent
+  - defense
+  - audit
+  - fiction
+  - full-moon
+created: "2026-05-05"

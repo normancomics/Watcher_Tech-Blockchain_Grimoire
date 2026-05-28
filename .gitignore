@@ -14,3 +14,7 @@ next.user-config.*
 node_modules
 .next/
 .DS_Store
+
+# Grimoire CLI build artifacts and exports
+packages/grimoire-cli/dist/
+dist/corpus-export/
