@@ -127,7 +127,7 @@ export class WatcherArchon {
         severity: lunarRisk.riskLevel as ThreatReport['severity'],
         description: `Elevated lunar risk detected: ${lunarRisk.currentPhase}`,
         evidence: [lunarRisk.recommendation],
-        recommendation: `Monitor all large transactions. Current phase: ${lunarRisk.currentPhase}`,
+        recommendedAction: `Monitor all large transactions. Current phase: ${lunarRisk.currentPhase}`,
       });
     }
   }

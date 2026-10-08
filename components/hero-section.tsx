@@ -1,18 +1,22 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useState, useSyncExternalStore } from "react"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { PAYMENT_CONFIG } from "@/lib/agent-config"
 import { Github, ExternalLink, Bot, Zap, Shield, Copy, Check } from "lucide-react"
 
-export function HeroSection() {
-  const [mounted, setMounted] = useState(false)
-  const [copied, setCopied] = useState(false)
+const emptySubscribe = () => () => {}
 
-  useEffect(() => {
-    setMounted(true)
-  }, [])
+export function HeroSection() {
+  // Avoids hydration mismatch for client-only animated content without
+  // triggering an extra render via a useEffect + setState pair.
+  const mounted = useSyncExternalStore(
+    emptySubscribe,
+    () => true,
+    () => false
+  )
+  const [copied, setCopied] = useState(false)
 
   const copyAddress = () => {
     navigator.clipboard.writeText(PAYMENT_CONFIG.address)

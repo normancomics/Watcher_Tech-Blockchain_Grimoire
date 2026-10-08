@@ -69,7 +69,7 @@ export function createPaymentGate(config: {
 }
 
 function extractPaymentProof(req: Request): PaymentProof | null {
-  const receiptHash = (req.headers as Record<string, string>)['x-payment-receipt'];
+  const receiptHash = req.headers.get('x-payment-receipt');
   if (!receiptHash) return null;
   
   // In production: validate and decode the receipt

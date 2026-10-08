@@ -5,7 +5,7 @@
 
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 
 interface LunarData {
   phase: string;
@@ -35,49 +35,44 @@ const RISK_COLORS: Record<string, string> = {
   CRITICAL: 'text-red-400',
 };
 
+// Simplified lunar computation (full computation in lunar-oracle.ts)
+function computeLunarData(): LunarData {
+  const SYNODIC_MONTH = 29.530588853;
+  const KNOWN_NEW_MOON = new Date('2000-01-06').getTime();
+  const now = Date.now();
+  const daysSinceNew = ((now - KNOWN_NEW_MOON) / 86400000) % SYNODIC_MONTH;
+  const illumination = (1 - Math.cos((daysSinceNew / SYNODIC_MONTH) * 2 * Math.PI)) / 2;
+
+  const phases = [
+    'new_moon', 'waxing_crescent', 'first_quarter', 'waxing_gibbous',
+    'full_moon', 'waning_gibbous', 'last_quarter', 'waning_crescent'
+  ];
+  const phaseIndex = Math.floor((daysSinceNew / SYNODIC_MONTH) * 8) % 8;
+  const phase = phases[phaseIndex];
+
+  const riskScore = phase === 'full_moon' || phase === 'new_moon' ? 65 : 30;
+  const riskLevel = riskScore >= 60 ? 'HIGH' : riskScore >= 40 ? 'MODERATE' : 'LOW';
+
+  return {
+    phase,
+    illumination,
+    riskLevel,
+    riskScore,
+    recommendation: riskScore >= 60
+      ? 'CAUTION: Enhanced monitoring recommended'
+      : 'PROCEED: Normal operations advised',
+    daysUntilFull: phase.includes('waxing') || phase === 'new_moon'
+      ? (SYNODIC_MONTH / 2) - daysSinceNew
+      : SYNODIC_MONTH - daysSinceNew + (SYNODIC_MONTH / 2),
+    daysUntilNew: SYNODIC_MONTH - daysSinceNew,
+  };
+}
+
 export function LunarCalendar(): React.ReactElement {
-  const [lunarData, setLunarData] = useState<LunarData | null>(null);
-  const [loading, setLoading] = useState(true);
+  // Computed once on mount; deterministic and side-effect free, so it is
+  // derived directly via a lazy initializer instead of an effect + setState.
+  const [lunarData] = useState<LunarData>(() => computeLunarData());
 
-  useEffect(() => {
-    // Simplified lunar computation (full computation in lunar-oracle.ts)
-    const computeLunarData = (): LunarData => {
-      const SYNODIC_MONTH = 29.530588853;
-      const KNOWN_NEW_MOON = new Date('2000-01-06').getTime();
-      const now = Date.now();
-      const daysSinceNew = ((now - KNOWN_NEW_MOON) / 86400000) % SYNODIC_MONTH;
-      const illumination = (1 - Math.cos((daysSinceNew / SYNODIC_MONTH) * 2 * Math.PI)) / 2;
-      
-      const phases = [
-        'new_moon', 'waxing_crescent', 'first_quarter', 'waxing_gibbous',
-        'full_moon', 'waning_gibbous', 'last_quarter', 'waning_crescent'
-      ];
-      const phaseIndex = Math.floor((daysSinceNew / SYNODIC_MONTH) * 8) % 8;
-      const phase = phases[phaseIndex];
-      
-      const riskScore = phase === 'full_moon' || phase === 'new_moon' ? 65 : 30;
-      const riskLevel = riskScore >= 60 ? 'HIGH' : riskScore >= 40 ? 'MODERATE' : 'LOW';
-      
-      return {
-        phase,
-        illumination,
-        riskLevel,
-        riskScore,
-        recommendation: riskScore >= 60 
-          ? 'CAUTION: Enhanced monitoring recommended' 
-          : 'PROCEED: Normal operations advised',
-        daysUntilFull: phase.includes('waxing') || phase === 'new_moon' 
-          ? (SYNODIC_MONTH / 2) - daysSinceNew 
-          : SYNODIC_MONTH - daysSinceNew + (SYNODIC_MONTH / 2),
-        daysUntilNew: SYNODIC_MONTH - daysSinceNew,
-      };
-    };
-    
-    setLunarData(computeLunarData());
-    setLoading(false);
-  }, []);
-
-  if (loading) return <div className="text-purple-400">Computing lunar phase...</div>;
   if (!lunarData) return <div className="text-red-400">Failed to compute lunar data</div>;
 
   return (
