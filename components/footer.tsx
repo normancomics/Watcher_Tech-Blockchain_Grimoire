@@ -128,10 +128,21 @@ export function Footer() {
           <p className="text-sm text-muted-foreground text-center">
             <span className="font-medium">THE ETERNAL SIGIL</span> — {PAYMENT_CONFIG.ens} 2026 A.D.
           </p>
-          <div className="text-sm text-muted-foreground">
+          <a
+            href="https://github.com/normancomics/Watcher_Tech-Blockchain_Grimoire/blob/main/LICENSE"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-sm text-muted-foreground hover:text-primary transition-colors"
+          >
             MIT License
-          </div>
+          </a>
         </div>
+
+        {/* Independent R&D disclaimer */}
+        <p className="text-xs text-muted-foreground/70 text-center pt-6 max-w-2xl mx-auto">
+          Independent research &amp; development project. Not BibleFi — not directly connected
+          to BibleFi in any way, shape, or form.
+        </p>
       </div>
     </footer>
   )

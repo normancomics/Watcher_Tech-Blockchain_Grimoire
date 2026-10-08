@@ -1,4 +1,5 @@
 import { HeroSection } from "@/components/hero-section"
+import { RDDisclaimer } from "@/components/rd-disclaimer"
 import { ArchitectureSection } from "@/components/architecture-section"
 import { ContractsSection } from "@/components/contracts-section"
 import { AgentDiscoverySection } from "@/components/agent-discovery"
@@ -14,7 +15,10 @@ export default function Home() {
     <main className="min-h-screen">
       {/* Hero with agent-focused badges and payment address */}
       <HeroSection />
-      
+
+      {/* Independent R&D notice — not BibleFi, standalone research */}
+      <RDDisclaimer />
+
       {/* Agent Discovery - MCP, A2A, ERC-8004 capabilities */}
       <AgentDiscoverySection />
       

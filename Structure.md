@@ -7,6 +7,12 @@
 This document maps the complete repository flow — from ancient Watcher lore
 through to on-chain execution and AI monetization.
 
+> **R&D disclaimer:** This repository is independent research & development. It is not
+> BibleFi and is not directly connected to BibleFi in any way, shape, or form — it is simply
+> the public R&D behind the blockchain, AI/AGI, RAG-AGI, MCP, and sovereign agentic framework
+> technologies that power agents and users across the industry today. See the
+> [README](README.md#independent-research--development-notice) for the full notice.
+
 ---
 
 ## Repository Flow Diagram

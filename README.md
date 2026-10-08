@@ -16,6 +16,29 @@ privacy-first payment rails, and autonomous RAG-AGI Watcher agents — all runni
 
 ---
 
+## Independent Research & Development Notice
+
+This repository is an **independent, standalone research & development project**. It is not
+part of, operated by, or officially released as **BibleFi**, and it is not directly connected
+to BibleFi in any way, shape, or form.
+
+What it *is*: a public R&D sandbox exploring the underlying technology stacks that power
+modern sovereign, agentic systems — **blockchain** (smart contracts, payment rails, on-chain
+identity), **AI / AGI**, **RAG-AGI** (retrieval-augmented generation for autonomous agents),
+**MCP** (Model Context Protocol tool servers), and **sovereign agentic frameworks** (A2A
+discovery, ERC-8004 identity/reputation, x402 micropayments) — the same categories of
+technology already in production use by millions of agents and users across the industry today.
+
+The esoteric/occult framing (Watcher lore, sigils, alchemical language, etc.) used throughout
+this repository is a deliberate narrative and pedagogical device for encoding and teaching these
+technical concepts — it is symbolic and educational, not a claim of supernatural capability,
+financial product, or investment vehicle. Nothing here constitutes financial, legal, or
+security advice. Any resemblance to, or shared vocabulary with, other named projects
+(including BibleFi) reflects shared research lineage only, not affiliation, partnership, or
+official endorsement.
+
+---
+
 ## Repository Structure
 
 See [`Structure.md`](Structure.md) for the full hierarchy overview.
