@@ -23,6 +23,27 @@ export const PAYMENT_CONFIG = {
   },
 } as const
 
+// Watcher Tech Blockchain Grimoire — R&D Treasury
+//
+// A dedicated, non-custodial wallet for the project's own R&D arm — separate
+// from the author's personal PAYMENT_CONFIG.address above. Continuous
+// Superfluid CFA streams (see x402-monetization/superfluid-streams.ts
+// createRDTreasuryConfig()) and other x402-settled funding flow here,
+// supporting ongoing research & development independent of any personal or
+// third-party treasury. See docs/RD_TREASURY_AND_SOVEREIGN_FUNDING.md.
+//
+// Generate your own (never share or commit the private key):
+//   foundry:  cast wallet new
+//   ethers:   node -e "console.log(require('ethers').Wallet.createRandom().address)"
+// then set it here and in .env as RD_TREASURY_ADDRESS.
+export const RD_TREASURY = {
+  address: "" as string,
+  label: "Watcher Tech Blockchain Grimoire — R&D Treasury",
+  purpose:
+    "Independent R&D funding via Superfluid CFA streams (continuous) and x402 micropayments (one-shot)",
+  network: { chainId: 8453, name: "base" } as const,
+} as const
+
 // MCP Tool pricing in USD (paid via x402 micropayments)
 export const TOOL_PRICING = {
   grimoire_audit_scan: { usd: 0.50, credits: 5 },

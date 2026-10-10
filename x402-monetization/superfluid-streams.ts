@@ -8,10 +8,13 @@
  * Integration:
  *   Superfluid Protocol: https://www.superfluid.finance/
  *   Base chain Superfluid deployment addresses are used.
+ *   x402 micropayments (one-shot) and Superfluid streams (continuous) are
+ *   complementary payment rails into the same R&D Treasury — see
+ *   createRDTreasuryConfig() below and docs/RD_TREASURY_AND_SOVEREIGN_FUNDING.md.
  *
  * Flow:
  *   1. Entrant wraps ETH → ETHx (Super Token) on Base
- *   2. Entrant opens a CFA stream: entrant → MU treasury
+ *   2. Entrant opens a CFA stream: entrant → R&D Treasury
  *   3. MuWatcherGate.enterGateSuperfluid() verifies the stream is active
  *   4. Access persists as long as stream flows; revoked when stream closes
  *
@@ -266,4 +269,66 @@ export function createDefaultConfig(treasuryAddress: string): SuperfluidConfig {
   };
 }
 
-export default { MuSuperfluidManager, getFlowRateForLevel, quoteStream, createDefaultConfig };
+/**
+ * Error thrown when the R&D Treasury address has not been configured.
+ */
+export class RDTreasuryNotConfiguredError extends Error {
+  constructor() {
+    super(
+      [
+        "RD_TREASURY_ADDRESS is not set.",
+        "The R&D arm's Superfluid treasury is a dedicated, non-custodial wallet —",
+        "generate your own with `cast wallet new` (Foundry) or",
+        "`node -e \"console.log(require('ethers').Wallet.createRandom().address)\"`,",
+        "then set RD_TREASURY_ADDRESS in your .env (see .env.example). Never commit",
+        "the corresponding private key.",
+      ].join(" "),
+    );
+    this.name = "RDTreasuryNotConfiguredError";
+  }
+}
+
+/**
+ * Build the Superfluid config that routes incoming CFA streams to the
+ * Watcher Tech Blockchain Grimoire's own R&D Treasury wallet — a wallet
+ * dedicated to funding this project's ongoing research & development
+ * (compute, gas, infrastructure), independent of any personal or
+ * third-party treasury. See docs/RD_TREASURY_AND_SOVEREIGN_FUNDING.md.
+ *
+ * @param treasuryAddress  Defaults to the `RD_TREASURY_ADDRESS` env var when
+ *                         available (Node/server runtimes). Pass it explicitly
+ *                         in environments without `process.env` (e.g. edge/browser).
+ * @param chainId          8453 for Base mainnet, 84532 for Base Sepolia.
+ * @throws RDTreasuryNotConfiguredError if no address is available.
+ */
+export function createRDTreasuryConfig(
+  treasuryAddress?: string,
+  chainId: 8453 | 84532 = 8453,
+): SuperfluidConfig {
+  const address =
+    treasuryAddress ??
+    (typeof process !== "undefined" ? process.env?.RD_TREASURY_ADDRESS : undefined);
+
+  if (!address) {
+    throw new RDTreasuryNotConfiguredError();
+  }
+
+  const addresses =
+    chainId === 8453 ? BASE_SUPERFLUID_ADDRESSES : BASE_SEPOLIA_SUPERFLUID_ADDRESSES;
+
+  return {
+    cfaForwarderAddress: addresses.CFAv1Forwarder,
+    superTokenAddress:   addresses.ETHx,
+    treasuryAddress:     address,
+    chainId,
+  };
+}
+
+export default {
+  MuSuperfluidManager,
+  getFlowRateForLevel,
+  quoteStream,
+  createDefaultConfig,
+  createRDTreasuryConfig,
+};
+

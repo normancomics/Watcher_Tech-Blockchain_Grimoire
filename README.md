@@ -196,6 +196,12 @@ MU Seal                 : 𒉙⍤L01𐤌𐤏::3f7a2b4c9e…
 
 **No Polygon. No Solana. No Ethereum mainnet. No Optimism. Base only.**
 
+All of the above settle into the project's own **R&D Treasury** — a dedicated,
+non-custodial wallet separate from any personal address, funding this independent
+R&D arm's ongoing work. See
+[`docs/RD_TREASURY_AND_SOVEREIGN_FUNDING.md`](docs/RD_TREASURY_AND_SOVEREIGN_FUNDING.md)
+for setup and governance details.
+
 ---
 
 ## System Architecture
