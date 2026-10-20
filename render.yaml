@@ -1,0 +1,14 @@
+services:
+  - type: web
+    name: watcher-tech-grimoire
+    runtime: node
+    plan: free
+    # pnpm is pinned to the version the lockfile was verified with (lockfileVersion 9.0)
+    buildCommand: npx -y pnpm@10.34.6 install --frozen-lockfile && npx -y pnpm@10.34.6 run build
+    startCommand: ./node_modules/.bin/next start
+    healthCheckPath: /llms.txt
+    envVars:
+      - key: NODE_VERSION
+        value: "20.19.2"
+      - key: PAY_TO
+        value: "0x3d95D4A6DbaE0Cd0643a82b13A13b08921D6ADf7"
